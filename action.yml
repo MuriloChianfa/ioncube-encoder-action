@@ -60,7 +60,6 @@ inputs:
 outputs:
   status:
     description: 'The message of encode proccess'
-    type: string
 
 runs:
   using: node20

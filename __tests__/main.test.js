@@ -36,5 +36,5 @@ describe('action', () => {
     expect(debugMock).toHaveBeenNthCalledWith(9, '')
 
     expect(setOutputMock).toHaveBeenCalledWith('status', 'Project encoded with success')
-  })
+  }, 20000)
 })

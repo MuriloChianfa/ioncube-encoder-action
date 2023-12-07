@@ -3,13 +3,13 @@ const evaluation = require('../evaluation')
 
 /**
  * Validate trial input values.
- * @returns {string} Returns a validated trial input.
+ * @returns {Promise<string>} Returns a validated trial input.
  */
-module.exports = function validateTrial() {
-  const trial = core.getInput('trial', { required: true }) ?? false
+module.exports = async function validateTrial() {
+  const trial = core.getInput('trial', { required: true }) ?? true
 
   if (trial) {
-    return evaluation.evaluation()
+    return await evaluation()
   }
 
   // TODO: add a default path parameter

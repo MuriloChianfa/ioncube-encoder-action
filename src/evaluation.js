@@ -1,22 +1,29 @@
 const core = require('@actions/core')
 const EVALUATION_PATH = './ioncube_encoder_evaluation/ioncube_encoder.sh'
+const tar = require('tar')
+const fs = require('fs')
+const cp = require('child_process')
+const process = require('process')
 
 /**
  * Download ioncube evaluation.
- * @returns {string} Returns the path of encoder.
+ * @returns {Promise<string>} Returns the path of encoder.
  */
-async function evaluation() {
-  core.debug('Using trial ioncube to encode files!')
-  core.debug('Downloading trial version of ioncube encoder...')
+module.exports = async function evaluation() {
+  const cwd = process.cwd()
 
-  // TODO: download ioncube evaluation
-  // wget https://www.ioncube.com/eval_linux -O ioncube_encoder_evaluation.tar.gz
-  // tar -xzvf ioncube_encoder_evaluation.tar.gz
+  if (!fs.existsSync('ioncube_encoder_evaluation')) {
+    await download('https://www.ioncube.com/eval_linux', `${cwd}/ioncube_encoder_evaluation.tar.gz`)
+    await tar.extract({ file: `${cwd}/ioncube_encoder_evaluation.tar.gz` })
+
+    if (fs.existsSync(`${cwd}/ioncube_encoder_evaluation.tar.gz`)) {
+      fs.unlinkSync(`${cwd}/ioncube_encoder_evaluation.tar.gz`)
+    }
+  }
 
   return EVALUATION_PATH
 }
 
-module.exports = {
-  EVALUATION_PATH,
-  evaluation
+const download = async (uri, filename) => {
+  cp.execSync(`wget ${uri} -O ${filename}`)
 }

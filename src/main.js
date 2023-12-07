@@ -8,7 +8,7 @@ const validate = require('./validate')
  */
 async function run() {
   try {
-    const inputs = validate()
+    const inputs = await validate()
 
     if (!inputs.trial) {
       // TODO: activate ioncube

@@ -12,12 +12,12 @@ const validateOutput = require('./inputs/output')
 
 /**
  * Set default arguments depending on inputed template.
- * @returns {object} Inputs based on templates.
+ * @returns {Promise<object>} Inputs based on templates.
  */
-module.exports = function validate() {
+module.exports = async function validate() {
   const template = validateTemplate()
 
-  const ioncube = validateTrial()
+  const ioncube = await validateTrial()
   const trial = ioncube === EVALUATION_PATH ? true : false
 
   const defaults = choose(template)
