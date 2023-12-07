@@ -5,7 +5,8 @@ const core = require('@actions/core')
  * @returns {string} Returns a validated php-target-version input.
  */
 module.exports = function validatePhpTargetVersion(standard = '8.2') {
-  let phpTargetVersion = core.getInput('php-target-version', { required: true }) ?? standard
+  let phpTargetVersion =
+    core.getInput('php-target-version', { required: true }) ?? standard
 
   core.debug(`Using PHP target version: ${phpTargetVersion}`)
 

@@ -13,7 +13,10 @@ module.exports = async function evaluation() {
   const cwd = process.cwd()
 
   if (!fs.existsSync('ioncube_encoder_evaluation')) {
-    await download('https://www.ioncube.com/eval_linux', `${cwd}/ioncube_encoder_evaluation.tar.gz`)
+    await download(
+      'https://www.ioncube.com/eval_linux',
+      `${cwd}/ioncube_encoder_evaluation.tar.gz`
+    )
     await tar.extract({ file: `${cwd}/ioncube_encoder_evaluation.tar.gz` })
 
     if (fs.existsSync(`${cwd}/ioncube_encoder_evaluation.tar.gz`)) {

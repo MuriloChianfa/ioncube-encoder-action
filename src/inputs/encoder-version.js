@@ -5,7 +5,8 @@ const core = require('@actions/core')
  * @returns {string} Returns a validated encoder-version input.
  */
 module.exports = function validateEncoderVersion(standard = 'current') {
-  let encoderVersion = core.getInput('encoder-version', { required: true }) ?? standard
+  let encoderVersion =
+    core.getInput('encoder-version', { required: true }) ?? standard
 
   core.debug(`Using encoder version: ${encoderVersion}`)
 

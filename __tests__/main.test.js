@@ -23,10 +23,22 @@ describe('action', () => {
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly with default values
-    expect(debugMock).toHaveBeenNthCalledWith(1, 'Encoding files using template: laravel')
-    expect(debugMock).toHaveBeenNthCalledWith(2, 'Using encoder version: current')
-    expect(debugMock).toHaveBeenNthCalledWith(3, 'Using PHP target version: 8.2')
-    expect(debugMock).toHaveBeenNthCalledWith(4, 'Using target architecture: x86-64')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      1,
+      'Encoding files using template: laravel'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      2,
+      'Using encoder version: current'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      3,
+      'Using PHP target version: 8.2'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      4,
+      'Using target architecture: x86-64'
+    )
     expect(debugMock).toHaveBeenNthCalledWith(5, 'Using input files: .')
     expect(debugMock).toHaveBeenNthCalledWith(6, 'Using output path: encrypted')
 
@@ -35,6 +47,9 @@ describe('action', () => {
     expect(debugMock).toHaveBeenNthCalledWith(8, '')
     expect(debugMock).toHaveBeenNthCalledWith(9, '')
 
-    expect(setOutputMock).toHaveBeenCalledWith('status', 'Project encoded with success')
+    expect(setOutputMock).toHaveBeenCalledWith(
+      'status',
+      'Project encoded with success'
+    )
   }, 20000)
 })
