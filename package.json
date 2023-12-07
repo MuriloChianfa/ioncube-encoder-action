@@ -1,21 +1,23 @@
 {
-  "name": "javascript-action",
-  "description": "GitHub Actions JavaScript Template",
-  "version": "0.0.0",
-  "author": "",
+  "name": "ioncube-encoder-action",
+  "description": "Github action for integrate your project encode with ioncube into your CI/CD pipeline.",
+  "version": "0.1.0",
+  "type": "module",
+  "author": "MuriloChianfa <murilo.chianfa@outlook.com>",
   "private": true,
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/MuriloChianfa/ioncube-encoder-action",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/MuriloChianfa/ioncube-encoder-action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/MuriloChianfa/ioncube-encoder-action/issues"
   },
   "keywords": [
-    "GitHub",
     "Actions",
-    "JavaScript"
+    "Ioncube",
+    "Laravel",
+    "PHP"
   ],
   "exports": {
     ".": "./dist/index.js"
@@ -63,7 +65,8 @@
     ]
   },
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^1.10.1",
+    "@actions/exec": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",

@@ -13,84 +13,28 @@ const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
 // Mock the action's main function
 const runMock = jest.spyOn(main, 'run')
 
-// Other utilities
-const timeRegex = /^\d{2}:\d{2}:\d{2}/
-
 describe('action', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('sets the time output', async () => {
-    // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation(name => {
-      switch (name) {
-        case 'milliseconds':
-          return '500'
-        default:
-          return ''
-      }
-    })
-
+  it('run succefully with default args', async () => {
     await main.run()
     expect(runMock).toHaveReturned()
 
-    // Verify that all of the core library functions were called correctly
-    expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      2,
-      expect.stringMatching(timeRegex)
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      3,
-      expect.stringMatching(timeRegex)
-    )
-    expect(setOutputMock).toHaveBeenNthCalledWith(
-      1,
-      'time',
-      expect.stringMatching(timeRegex)
-    )
-  })
+    // Verify that all of the core library functions were called correctly with default values
+    expect(debugMock).toHaveBeenNthCalledWith(1, 'Encoding files using template: laravel')
+    expect(debugMock).toHaveBeenNthCalledWith(2, 'Using encoder version: current')
+    expect(debugMock).toHaveBeenNthCalledWith(3, 'Using PHP target version: 8.2')
+    expect(debugMock).toHaveBeenNthCalledWith(4, 'Using target architecture: x86-64')
+    expect(debugMock).toHaveBeenNthCalledWith(5, 'Using input files: .')
+    expect(debugMock).toHaveBeenNthCalledWith(6, 'Using output path: encrypted')
 
-  it('sets a failed status', async () => {
-    // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation(name => {
-      switch (name) {
-        case 'milliseconds':
-          return 'this is not a number'
-        default:
-          return ''
-      }
-    })
+    // No errors
+    expect(debugMock).toHaveBeenNthCalledWith(7, 0)
+    expect(debugMock).toHaveBeenNthCalledWith(8, '')
+    expect(debugMock).toHaveBeenNthCalledWith(9, '')
 
-    await main.run()
-    expect(runMock).toHaveReturned()
-
-    // Verify that all of the core library functions were called correctly
-    expect(setFailedMock).toHaveBeenNthCalledWith(
-      1,
-      'milliseconds not a number'
-    )
-  })
-
-  it('fails if no input is provided', async () => {
-    // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation(name => {
-      switch (name) {
-        case 'milliseconds':
-          throw new Error('Input required and not supplied: milliseconds')
-        default:
-          return ''
-      }
-    })
-
-    await main.run()
-    expect(runMock).toHaveReturned()
-
-    // Verify that all of the core library functions were called correctly
-    expect(setFailedMock).toHaveBeenNthCalledWith(
-      1,
-      'Input required and not supplied: milliseconds'
-    )
+    expect(setOutputMock).toHaveBeenCalledWith('status', 'Project encoded with success')
   })
 })

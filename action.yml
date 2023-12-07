@@ -1,18 +1,66 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'ioncube-encoder-action'
+description: 'Github action for integrate your project encode with ioncube into your CI/CD pipeline.'
+author: 'MuriloChianfa'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  template:
+    description: 'The template to choose the best parameters for type of projects'
     required: true
-    default: '1000'
+    default: laravel
+    type: choice
+    options:
+      - laravel
+      - php
+  trial:
+    description: 'Encode file with trial version of ioncube'
+    required: true
+    default: false
+    type: boolean
 
-# Define your outputs here.
+  input:
+    description: 'The input path or files to encode'
+    required: true
+    default: ''
+    type: string
+  output:
+    description: 'The output path or files encoded'
+    required: true
+    default: 'encrypted'
+    type: string
+
+  encoder-version:
+    description: 'Ioncube encoder version'
+    required: true
+    default: 'current'
+    type: choice
+    options:
+      - current
+      - legacy
+      - obsolete
+
+  php-target-version:
+    description: 'PHP encoded files target version'
+    required: true
+    default: '8.2'
+    type: choice
+    options:
+      - '8.2'
+      - '8.1'
+      - '8.0'
+
+  arch:
+    description: 'architecture of target environment runner'
+    required: true
+    default: 64
+    type: choice
+    options:
+      - 86
+      - 64
+
 outputs:
-  time:
-    description: 'Your output description here'
+  status:
+    description: 'The message of encode proccess'
+    type: string
 
 runs:
   using: node20

@@ -1,5 +1,6 @@
 const core = require('@actions/core')
-const { wait } = require('./wait')
+const exec = require('@actions/exec')
+const validate = require('./validate')
 
 /**
  * The main function for the action.
@@ -7,20 +8,45 @@ const { wait } = require('./wait')
  */
 async function run() {
   try {
-    const ms = core.getInput('milliseconds', { required: true })
+    const inputs = validate()
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    if (!inputs.trial) {
+      // TODO: activate ioncube
+    }
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    let myOutput = ''
+    let myError = ''
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    const options = {}
+    options.listeners = {
+      stdout: data => {
+        myOutput += data.toString()
+      },
+      stderr: data => {
+        myError += data.toString()
+      }
+    }
+    options.silent = false
+    options.failOnStdErr = false
+    options.ignoreReturnCode = false
+
+    try {
+      const exitCode = await exec.exec(
+        `${inputs.ioncube} -${inputs.encoderVersion} -${inputs.phpTargetVersion} -${inputs.arch} ${inputs.input} -o ${inputs.output} --create-target --replace-target`,
+        [],
+        options
+      )
+      core.debug(exitCode)
+    } catch (error) {
+      core.error(error)
+    }
+
+    core.debug(myOutput)
+    core.debug(myError)
+
+    core.setOutput('status', 'Project encoded with success')
   } catch (error) {
-    // Fail the workflow run if an error occurs
+    // TODO: deactivate ioncube
     core.setFailed(error.message)
   }
 }
