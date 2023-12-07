@@ -17,13 +17,13 @@ inputs:
     default: false
     type: boolean
 
-  input:
-    description: 'The input path or files to encode'
+  source:
+    description: 'The source path or file to encode'
     required: true
     default: ''
     type: string
   output:
-    description: 'The output path or files encoded'
+    description: 'The output path or file encoded'
     required: true
     default: 'encrypted'
     type: string
@@ -49,7 +49,7 @@ inputs:
       - '8.0'
 
   arch:
-    description: 'architecture of target environment runner'
+    description: 'Architecture of target environment runner'
     required: true
     default: 64
     type: choice

@@ -1,205 +1,107 @@
-# Create a JavaScript Action
+<h1 align="center">Ioncube Encoder Action</h1>
 
-[![GitHub Super-Linter](https://github.com/actions/javascript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/javascript-action/actions/workflows/ci.yml/badge.svg)
+[![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
+[![CI](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml)
 
-Use this template to bootstrap the creation of a JavaScript action. :rocket:
+Automate and streamline IonCube encoding for your PHP with Laravel, Joomla, Wordpress projects with this powerful GitHub Action. Encode your source code effortlessly, ensuring an extra layer of security for your proprietary codebase.
 
-This template includes compilation support, tests, a validation workflow,
-publishing, and versioning guidance.
+![Banner](banner.png)
 
-If you are new, there's also a simpler introduction in the
-[Hello world JavaScript action repository](https://github.com/actions/hello-world-javascript-action).
+## Features
 
-## Create Your Own Action
+- **Seamless Integration:** Easily integrate IonCube encoding into your CI/CD workflows with a straightforward setup using this GitHub Action.
 
-To create your own action, you can use this repository as a template! Just
-follow the below instructions:
+- **Version Control:** Specify the IonCube version to use for encoding, ensuring compatibility with your project requirements.
 
-1. Click the **Use this template** button at the top of the repository
-1. Select **Create a new repository**
-1. Select an owner and name for your new repository
-1. Click **Create repository**
-1. Clone your new repository
+- **Flexible Configuration:** Customize the source and output directories, making it adaptable to various project structures.
+
+- **Efficient Workflow:** Save time and resources by automating the encoding process, allowing you to focus on building and deploying your applications.
+
+## Getting Started
+
+- **Setup Secrets**: Create a secret named IONCUBE_PASSPHRASE containing the passphrase to encode files.
+- **Configure Workflow**: Copy the example workflow into your project's .github/workflows directory, adjusting parameters as needed.
+- **Run Workflow**: Push your changes to trigger the IonCube encoding workflow and enjoy the automated process.
 
 > [!IMPORTANT]
 >
-> Make sure to remove or update the [`CODEOWNERS`](./CODEOWNERS) file! For
-> details on how to use this file, see
-> [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
+> Make sure to ignore the commits for encrypted files.
+> After encrypt your project, test them for make sure your correct functionality.
 
-## Initial Setup
-
-After you've cloned the repository to your local machine or codespace, you'll
-need to perform some initial setup steps before you can develop your action.
-
-> [!NOTE]
->
-> You'll need to have a reasonably modern version of
-> [Node.js](https://nodejs.org) handy. If you are using a version manager like
-> [`nodenv`](https://github.com/nodenv/nodenv) or
-> [`nvm`](https://github.com/nvm-sh/nvm), you can run `nodenv install` in the
-> root of your repository to install the version specified in
-> [`package.json`](./package.json). Otherwise, 20.x or later should work!
-
-1. :hammer_and_wrench: Install the dependencies
-
-   ```bash
-   npm install
-   ```
-
-1. :building_construction: Package the JavaScript for distribution
-
-   ```bash
-   npm run bundle
-   ```
-
-1. :white_check_mark: Run the tests
-
-   ```bash
-   $ npm test
-
-   PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
-
-   ...
-   ```
-
-## Update the Action Metadata
-
-The [`action.yml`](action.yml) file defines metadata about your action, such as
-input(s) and output(s). For details about this file, see
-[Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
-
-When you copy this repository, update `action.yml` with the name, description,
-inputs, and outputs for your action.
-
-## Update the Action Code
-
-The [`src/`](./src/) directory is the heart of your action! This contains the
-source code that will be run when your action is invoked. You can replace the
-contents of this directory with your own code.
-
-There are a few things to keep in mind when writing your action code:
-
-- Most GitHub Actions toolkit and CI/CD operations are processed asynchronously.
-  In `main.js`, you will see that the action is run in an `async` function.
-
-  ```javascript
-  const core = require('@actions/core')
-  //...
-
-  async function run() {
-    try {
-      //...
-    } catch (error) {
-      core.setFailed(error.message)
-    }
-  }
-  ```
-
-  For more information about the GitHub Actions toolkit, see the
-  [documentation](https://github.com/actions/toolkit/blob/master/README.md).
-
-So, what are you waiting for? Go ahead and start customizing your action!
-
-1. Create a new branch
-
-   ```bash
-   git checkout -b releases/v1
-   ```
-
-1. Replace the contents of `src/` with your action code
-1. Add tests to `__tests__/` for your source code
-1. Format, test, and build the action
-
-   ```bash
-   npm run all
-   ```
-
-   > [!WARNING]
-   >
-   > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
-   > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
-   > used in a workflow. This step also includes the `--license` option for
-   > `ncc`, which will create a license file for all of the production node
-   > modules used in your project.
-
-1. Commit your changes
-
-   ```bash
-   git add .
-   git commit -m "My first action is ready!"
-   ```
-
-1. Push them to your repository
-
-   ```bash
-   git push -u origin releases/v1
-   ```
-
-1. Create a pull request and get feedback on your action
-1. Merge the pull request into the `main` branch
-
-Your action is now published! :rocket:
-
-For information about versioning your action, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
-
-## Validate the Action
-
-You can now validate the action by referencing it in a workflow file. For
-example, [`ci.yml`](./.github/workflows/ci.yml) demonstrates how to reference an
-action in the same repository.
+### Usage
 
 ```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v3
+name: Encode with IonCube
 
-  - name: Test Local Action
-    id: test-action
-    uses: ./
-    with:
-      milliseconds: 1000
+on: [push]
 
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.test-action.outputs.time }}"
+jobs:
+  encode:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: IonCube Encode
+      uses: murilochianfa/ioncube-encode-action@v1.0.0
+      with:
+        source: 'src'
+        output: 'encrypted'
 ```
 
-For example workflow runs, check out the
-[Actions tab](https://github.com/actions/javascript-action/actions)! :rocket:
+### Inputs
 
-## Usage
+- ***template***: The template to choose the best parameters for type of projects.
+- ***trial***: Encode file with trial version of ioncube.
+- ***source***: The file or directory containing your PHP project.
+- ***output***: The file or directory where the encoded project will be saved.
+- ***encoder-version***: The Ioncube encoder version.
+- ***php-target-version***: The PHP encoded files target version.
+- ***arch***: Architecture of target environment runner.
 
-After testing, you can create version tag(s) that developers can use to
-reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
+## Example
 
-To include the action in a workflow in another repository, you can use the
-`uses` syntax with the `@` symbol to reference a specific branch, tag, or commit
-hash.
+Explore a complete example of a workflow that utilizes this action in the <a href="https://github.com/MuriloChianfa/ioncube-encoder-action">example project</a>.
 
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
+## Testing this package
 
-  - name: Run my Action
-    id: run-action
-    uses: actions/javascript-action@v1 # Commit with the `v1` tag
-    with:
-      milliseconds: 1000
-
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.run-action.outputs.time }}"
+```bash
+npm run lint
+npm run test
+npm run package
 ```
+
+### Dependencies
+
+- *NodeJS 20.8.0 or higher.*
+- *NPM 10.1.0 or higher.*
+
+## Commitment to Quality
+During package development, try as best as possible to embrace good design and
+development practices to try to ensure that this package is as good as it can
+be. The checklist for package development includes:
+
+-   ✅ Have no Lint warnings throughout all code.
+-   ✅ Include comprehensive documentation in README.md.
+
+## Credits
+
+- [Murilo Chianfa](https://github.com/MuriloChianfa)
+- [All Contributors](../../contributors)
+
+## Contributions
+
+We welcome contributions! Feel free to open issues for suggestions or bug reports, and pull requests are highly appreciated.
+
+## Security
+
+If you discover any security related issues, please email murilo.chianfa@outlook.com instead of using the issue tracker.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
+## Acknowledgments
+
+Special thanks to <a href="https://www.ioncube.com/">IonCube</a> for providing robust encoding technology.

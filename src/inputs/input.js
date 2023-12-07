@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {string} Returns a validated input input.
  */
 module.exports = function validateInput(standard = '') {
-  let input = core.getInput('input', { required: true }) ?? standard
+  let input = core.getInput('source', { required: true }) ?? standard
 
   core.debug(`Using input files: ${input === '' ? '.' : input}`)
 
