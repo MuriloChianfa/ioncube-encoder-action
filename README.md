@@ -1,11 +1,9 @@
-<h1 align="center">Ioncube Encoder Action</h1>
+![Banner](banner.png)
 
 [![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
 [![CI](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml)
 
-Automate and streamline IonCube encoding for your PHP with Laravel, Joomla, Wordpress projects with this powerful GitHub Action. Encode your source code effortlessly, ensuring an extra layer of security for your proprietary codebase.
-
-![Banner](banner.png)
+Automate and streamline IonCube encoding for your PHP project under Laravel, Joomla, Wordpress frameworks with this powerful GitHub Action. Encode your source code effortlessly, ensuring an extra layer of security for your proprietary codebase.
 
 ## Features
 
@@ -22,11 +20,6 @@ Automate and streamline IonCube encoding for your PHP with Laravel, Joomla, Word
 - **Setup Secrets**: Create a secret named IONCUBE_PASSPHRASE containing the passphrase to encode files.
 - **Configure Workflow**: Copy the example workflow into your project's .github/workflows directory, adjusting parameters as needed.
 - **Run Workflow**: Push your changes to trigger the IonCube encoding workflow and enjoy the automated process.
-
-> [!IMPORTANT]
->
-> Make sure to ignore the commits for encrypted files.
-> After encrypt your project, test them for make sure your correct functionality.
 
 ### Usage
 
@@ -60,6 +53,13 @@ jobs:
 - ***php-target-version***: The PHP encoded files target version.
 - ***arch***: Architecture of target environment runner.
 
+<hr>
+
+> [!IMPORTANT]
+>
+> Make sure to ignore the commits for encrypted files.
+> After encrypt your project, test them for make sure your correct functionality.
+
 ## Example
 
 Explore a complete example of a workflow that utilizes this action in the <a href="https://github.com/MuriloChianfa/ioncube-encoder-action">example project</a>.
@@ -85,11 +85,6 @@ be. The checklist for package development includes:
 -   ✅ Have no Lint warnings throughout all code.
 -   ✅ Include comprehensive documentation in README.md.
 
-## Credits
-
-- [Murilo Chianfa](https://github.com/MuriloChianfa)
-- [All Contributors](../../contributors)
-
 ## Contributions
 
 We welcome contributions! Feel free to open issues for suggestions or bug reports, and pull requests are highly appreciated.
@@ -97,6 +92,11 @@ We welcome contributions! Feel free to open issues for suggestions or bug report
 ## Security
 
 If you discover any security related issues, please email murilo.chianfa@outlook.com instead of using the issue tracker.
+
+## Credits
+
+- [Murilo Chianfa](https://github.com/MuriloChianfa)
+- [All Contributors](../../contributors)
 
 ## License
 
