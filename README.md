@@ -1,7 +1,9 @@
 ![Banner](banner.png)
 
-[![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
+[![Check Transpiled JavaScript](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/check-dist.yml)
 [![CI](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml)
+[![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
+[![CodeQL](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml)
 
 Automate and streamline IonCube encoding for your PHP project under Laravel, Joomla, WordPress frameworks with this powerful GitHub Action. Encode your source code effortlessly, ensuring an extra layer of security for your proprietary codebase.
 

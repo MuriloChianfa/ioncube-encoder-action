@@ -49,12 +49,12 @@ inputs:
   # File inputs
   source:
     description: 'The source path or file to encode'
-    required: true
+    required: false
     default: ''
     type: string
   output:
     description: 'The output path or file encoded'
-    required: true
+    required: false
     default: 'encrypted'
     type: string
 

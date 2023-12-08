@@ -55,8 +55,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          template: 'php'
-          source: ''
+          source: 'src'
           output: 'encrypted'
 
       - name: Print Output
