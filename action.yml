@@ -84,7 +84,7 @@ inputs:
   optimize:
     description: 'Level of encoding performance'
     required: true
-    default: 'max'
+    default: 'more'
     type: choice
     options:
       - 'more'
