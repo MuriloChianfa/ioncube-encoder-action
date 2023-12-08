@@ -55,7 +55,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          template: 'laravel'
+          template: 'php'
 
       - name: Print Output
         id: output
