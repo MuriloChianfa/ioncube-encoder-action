@@ -13,10 +13,10 @@ module.exports = function laravel() {
     encrypt: '*.blade.php',
     binary: true,
     optimize: 'max',
-    comments: false,
-    loader: false,
+    comments: true, // without
+    loader: true, // without
     preamble: '',
-    passphrase: '',
+    passphrase: 'CHANGEME',
     check: 'script',
     license: '/opt/license',
     callback: 'public/ioncube.php'

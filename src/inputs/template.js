@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {string} Returns a validated template input.
  */
 module.exports = function validateTemplate() {
-  const template = core.getInput('template', { required: true }) ?? 'laravel'
+  const template = core.getInput('template', { required: true }) ?? 'php'
   core.debug(`Encoding files using template: ${template}`)
 
   // TODO: validate template values

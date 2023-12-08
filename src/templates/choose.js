@@ -8,7 +8,7 @@ const templates = {
  * Choose correct template based on template input value.
  * @returns {object} Returns defaults values based on templates.
  */
-module.exports = function choose(template = 'laravel') {
+module.exports = function choose(template = 'php') {
   const standard = {
     encoderVersion: 'current',
     phpTargetVersion: '8.2',
@@ -19,7 +19,7 @@ module.exports = function choose(template = 'laravel') {
     encrypt: '',
     binary: false,
     optimize: 'more',
-    comments: false,
+    comments: true,
     loader: false,
     preamble: '',
     passphrase: '',
