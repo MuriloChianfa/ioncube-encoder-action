@@ -12574,7 +12574,7 @@ const core = __nccwpck_require__(2186)
  * @returns {string} Returns a validated input input.
  */
 module.exports = function validateInput(standard = '') {
-  let input = core.getInput('source', { required: true }) ?? standard
+  let input = core.getInput('source') ?? standard
 
   core.debug(`Using input files: ${input === '' ? '.' : input}`)
 
@@ -12665,7 +12665,7 @@ const core = __nccwpck_require__(2186)
  * @returns {string} Returns a validated output input.
  */
 module.exports = function validateOutput(standard = 'encrypted') {
-  const output = core.getInput('output', { required: true }) ?? standard
+  const output = core.getInput('output') ?? standard
 
   core.debug(`Using output path: ${output}`)
 

@@ -40,7 +40,6 @@
     "extends": "./.github/linters/.eslintrc.yml"
   },
   "jest": {
-    "verbose": true,
     "clearMocks": true,
     "testEnvironment": "node",
     "moduleFileExtensions": [
