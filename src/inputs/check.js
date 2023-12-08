@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated check input.
  */
 module.exports = function validateCheck(standard = 'auto') {
-  let check = core.getInput('license-check', { required: true }) ?? standard
+  let check = core.getInput('license-check') ?? standard
 
   if (check === 'auto') {
     check = 'auto'

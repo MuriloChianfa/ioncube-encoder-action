@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated binary input.
  */
 module.exports = function validateBinary(standard = false) {
-  const binary = core.getInput('binary', { required: true }) ?? standard
+  const binary = core.getInput('binary') ?? standard
   core.debug(
     binary === true
       ? 'Encoding into binary format'

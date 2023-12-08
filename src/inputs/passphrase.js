@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated passphrase input.
  */
 module.exports = function validatePassphrase(standard = '') {
-  const passphrase = core.getInput('passphrase', { required: true }) ?? standard
+  const passphrase = core.getInput('passphrase') ?? standard
   core.debug(`Using passphrase: ${passphrase === '' ? 'NONE' : passphrase}`)
   return passphrase
 }

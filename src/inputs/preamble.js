@@ -5,8 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated preamble input.
  */
 module.exports = function validatePreamble(standard = '') {
-  const preamble =
-    core.getInput('preamble-file', { required: true }) ?? standard
+  const preamble = core.getInput('preamble-file') ?? standard
   core.debug(`Adding preamble file: ${preamble === '' ? 'NONE' : preamble}`)
   return preamble
 }

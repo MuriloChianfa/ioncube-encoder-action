@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {string} Returns a validated arch input.
  */
 module.exports = function validateArchitecture(standard = '64') {
-  let arch = core.getInput('arch', { required: true }) ?? standard
+  let arch = core.getInput('arch', { required: false }) ?? standard
 
   if (arch === '86') {
     arch = 'x86'

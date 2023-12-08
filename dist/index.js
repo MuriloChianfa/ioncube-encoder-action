@@ -12412,7 +12412,7 @@ const core = __nccwpck_require__(2186)
  * @returns {string} Returns a validated arch input.
  */
 module.exports = function validateArchitecture(standard = '64') {
-  let arch = core.getInput('arch', { required: true }) ?? standard
+  let arch = core.getInput('arch', { required: false }) ?? standard
 
   if (arch === '86') {
     arch = 'x86'
@@ -12438,7 +12438,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated binary input.
  */
 module.exports = function validateBinary(standard = false) {
-  const binary = core.getInput('binary', { required: true }) ?? standard
+  const binary = core.getInput('binary') ?? standard
   core.debug(
     binary === true
       ? 'Encoding into binary format'
@@ -12460,8 +12460,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated callback input.
  */
 module.exports = function validateCallback(standard = '') {
-  const callback =
-    core.getInput('callback-file', { required: true }) ?? standard
+  const callback = core.getInput('callback-file') ?? standard
   core.debug(
     `Using callback file in runtime path: ${
       callback === '' ? 'NONE' : callback
@@ -12483,7 +12482,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated check input.
  */
 module.exports = function validateCheck(standard = 'auto') {
-  let check = core.getInput('license-check', { required: true }) ?? standard
+  let check = core.getInput('license-check') ?? standard
 
   if (check === 'auto') {
     check = 'auto'
@@ -12508,9 +12507,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated comments input.
  */
 module.exports = function validateComments(standard = true) {
-  const comments = !(
-    core.getInput('no-doc-comments', { required: true }) ?? standard
-  )
+  const comments = !(core.getInput('no-doc-comments') ?? standard)
   core.debug(
     comments === true ? 'Allowing doc comments' : 'Now allow doc comments'
   )
@@ -12531,7 +12528,7 @@ const core = __nccwpck_require__(2186)
  */
 module.exports = function validateEncoderVersion(standard = 'current') {
   let encoderVersion =
-    core.getInput('encoder-version', { required: true }) ?? standard
+    core.getInput('encoder-version', { required: false }) ?? standard
 
   core.debug(`Using encoder version: ${encoderVersion}`)
 
@@ -12559,7 +12556,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated encrypt input.
  */
 module.exports = function validateEncrypt(standard = '') {
-  const encrypt = core.getInput('encrypt', { required: true }) ?? standard
+  const encrypt = core.getInput('encrypt') ?? standard
   core.debug(`Encrypting files: ${encrypt === '' ? 'NONE' : encrypt}`)
   return encrypt
 }
@@ -12601,7 +12598,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated license input.
  */
 module.exports = function validateLicense(standard = '') {
-  const license = core.getInput('with-license', { required: true }) ?? standard
+  const license = core.getInput('with-license') ?? standard
   core.debug(
     `Using license file in runtime path: ${license === '' ? 'NONE' : license}`
   )
@@ -12621,9 +12618,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated loader input.
  */
 module.exports = function validateLoader(standard = true) {
-  const loader = !(
-    core.getInput('without-loader-check', { required: true }) ?? standard
-  )
+  const loader = !(core.getInput('without-loader-check') ?? standard)
   core.debug(
     loader === true
       ? 'Checking for loader in environment'
@@ -12645,7 +12640,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated optimize input.
  */
 module.exports = function validateOptimize(standard = 'more') {
-  let optimize = core.getInput('optimize', { required: true }) ?? standard
+  let optimize = core.getInput('optimize') ?? standard
 
   if (optimize === 'more') {
     optimize = 'more'
@@ -12690,7 +12685,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated passphrase input.
  */
 module.exports = function validatePassphrase(standard = '') {
-  const passphrase = core.getInput('passphrase', { required: true }) ?? standard
+  const passphrase = core.getInput('passphrase') ?? standard
   core.debug(`Using passphrase: ${passphrase === '' ? 'NONE' : passphrase}`)
   return passphrase
 }
@@ -12709,7 +12704,7 @@ const core = __nccwpck_require__(2186)
  */
 module.exports = function validatePhpTargetVersion(standard = '8.2') {
   let phpTargetVersion =
-    core.getInput('php-target-version', { required: true }) ?? standard
+    core.getInput('php-target-version', { required: false }) ?? standard
 
   core.debug(`Using PHP target version: ${phpTargetVersion}`)
 
@@ -12737,8 +12732,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated preamble input.
  */
 module.exports = function validatePreamble(standard = '') {
-  const preamble =
-    core.getInput('preamble-file', { required: true }) ?? standard
+  const preamble = core.getInput('preamble-file') ?? standard
   core.debug(`Adding preamble file: ${preamble === '' ? 'NONE' : preamble}`)
   return preamble
 }
@@ -12756,8 +12750,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated reflection input.
  */
 module.exports = function validateReflection(standard = false) {
-  const reflectionAll =
-    core.getInput('allow-reflection-all', { required: true }) ?? standard
+  const reflectionAll = core.getInput('allow-reflection-all') ?? standard
 
   if (reflectionAll === true) {
     core.debug('Allowing reflection for all')
@@ -12765,8 +12758,7 @@ module.exports = function validateReflection(standard = false) {
   }
 
   const reflection =
-    core.getInput('allow-reflection', { required: true }) ??
-    (standard === false ? '' : standard)
+    core.getInput('allow-reflection') ?? (standard === false ? '' : standard)
   core.debug(`Using reflection for: ${reflection === '' ? 'NONE' : reflection}`)
   return reflection
 }
@@ -12784,7 +12776,7 @@ const core = __nccwpck_require__(2186)
  * @returns {string} Returns a validated template input.
  */
 module.exports = function validateTemplate() {
-  const template = core.getInput('template', { required: true }) ?? 'php'
+  const template = core.getInput('template', { required: false }) ?? 'php'
   core.debug(`Encoding files using template: ${template}`)
 
   // TODO: validate template values
@@ -12806,7 +12798,7 @@ const evaluation = __nccwpck_require__(5431)
  * @returns {Promise<string>} Returns a validated trial input.
  */
 module.exports = async function validateTrial() {
-  const trial = core.getInput('trial', { required: true }) ?? true
+  const trial = core.getInput('trial', { required: false }) ?? true
 
   if (trial) {
     return await evaluation()

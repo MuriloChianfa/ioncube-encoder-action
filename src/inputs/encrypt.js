@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated encrypt input.
  */
 module.exports = function validateEncrypt(standard = '') {
-  const encrypt = core.getInput('encrypt', { required: true }) ?? standard
+  const encrypt = core.getInput('encrypt') ?? standard
   core.debug(`Encrypting files: ${encrypt === '' ? 'NONE' : encrypt}`)
   return encrypt
 }

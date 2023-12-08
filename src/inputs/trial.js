@@ -6,7 +6,7 @@ const evaluation = require('../evaluation')
  * @returns {Promise<string>} Returns a validated trial input.
  */
 module.exports = async function validateTrial() {
-  const trial = core.getInput('trial', { required: true }) ?? true
+  const trial = core.getInput('trial', { required: false }) ?? true
 
   if (trial) {
     return await evaluation()

@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated optimize input.
  */
 module.exports = function validateOptimize(standard = 'more') {
-  let optimize = core.getInput('optimize', { required: true }) ?? standard
+  let optimize = core.getInput('optimize') ?? standard
 
   if (optimize === 'more') {
     optimize = 'more'

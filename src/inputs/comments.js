@@ -5,9 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated comments input.
  */
 module.exports = function validateComments(standard = true) {
-  const comments = !(
-    core.getInput('no-doc-comments', { required: true }) ?? standard
-  )
+  const comments = !(core.getInput('no-doc-comments') ?? standard)
   core.debug(
     comments === true ? 'Allowing doc comments' : 'Now allow doc comments'
   )
