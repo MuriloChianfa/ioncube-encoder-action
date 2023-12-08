@@ -43,9 +43,9 @@ describe('action', () => {
     expect(debugMock).toHaveBeenNthCalledWith(6, 'Using output path: encrypted')
 
     // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(7, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(8, '')
-    expect(debugMock).toHaveBeenNthCalledWith(9, '')
+    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
+    expect(debugMock).toHaveBeenNthCalledWith(19, '')
+    expect(debugMock).toHaveBeenNthCalledWith(20, '')
 
     expect(setOutputMock).toHaveBeenCalledWith(
       'status',

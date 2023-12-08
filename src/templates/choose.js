@@ -8,13 +8,24 @@ const templates = {
  * Choose correct template based on template input value.
  * @returns {object} Returns defaults values based on templates.
  */
-module.exports = async function choose(template = 'laravel') {
+module.exports = function choose(template = 'laravel') {
   const standard = {
     encoderVersion: 'current',
     phpTargetVersion: '8.2',
     arch: 64,
     input: '',
-    output: 'encrypted'
+    output: 'encrypted',
+    reflection: false,
+    encrypt: '',
+    binary: false,
+    optimize: 'more',
+    comments: false,
+    loader: false,
+    preamble: '',
+    passphrase: '',
+    check: 'auto',
+    license: '',
+    callback: ''
   }
 
   const args = templates[template]?.()

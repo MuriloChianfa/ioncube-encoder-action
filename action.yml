@@ -3,6 +3,12 @@ description: 'Github action for integrate your project encode with ioncube into 
 author: 'MuriloChianfa'
 
 inputs:
+  # Basic inputs
+  trial:
+    description: 'Encode file with trial version of ioncube'
+    required: true
+    default: false
+    type: boolean
   template:
     description: 'The template to choose the best parameters for type of projects'
     required: true
@@ -11,12 +17,36 @@ inputs:
     options:
       - laravel
       - php
-  trial:
-    description: 'Encode file with trial version of ioncube'
-    required: true
-    default: false
-    type: boolean
 
+  # Encoder inputs
+  encoder-version:
+    description: 'Ioncube encoder version'
+    required: true
+    default: 'current'
+    type: choice
+    options:
+      - current
+      - legacy
+      - obsolete
+  php-target-version:
+    description: 'PHP encoded files target version'
+    required: true
+    default: '8.2'
+    type: choice
+    options:
+      - '8.2'
+      - '8.1'
+      - '8.0'
+  arch:
+    description: 'Architecture of target environment runner'
+    required: true
+    default: 64
+    type: choice
+    options:
+      - 86
+      - 64
+
+  # File inputs
   source:
     description: 'The source path or file to encode'
     required: true
@@ -28,34 +58,79 @@ inputs:
     default: 'encrypted'
     type: string
 
-  encoder-version:
-    description: 'Ioncube encoder version'
+  # Reflection API
+  allow-reflection:
+    description: 'Name or glob to funcions or classes for allow the reflection API'
     required: true
-    default: 'current'
-    type: choice
-    options:
-      - current
-      - legacy
-      - obsolete
+    default: ''
+    type: string
+  allow-reflection-all:
+    description: 'Allow the reflection API at all the PHP code'
+    required: true
+    default: false
+    type: boolean
 
-  php-target-version:
-    description: 'PHP encoded files target version'
+  # Files customization
+  encrypt:
+    description: 'Name or glob to files to encrypt'
     required: true
-    default: '8.2'
+    default: ''
+    type: string
+  binary:
+    description: 'Encode files in binary format'
+    required: true
+    default: false
+    type: boolean
+  optimize:
+    description: 'Level of encoding performance'
+    required: true
+    default: 'max'
     type: choice
     options:
-      - '8.2'
-      - '8.1'
-      - '8.0'
+      - 'more'
+      - 'max'
 
-  arch:
-    description: 'Architecture of target environment runner'
+  # Output customizations
+  no-doc-comments:
+    description: 'Not allow doc comments on encoded files'
     required: true
-    default: 64
+    default: true
+    type: boolean
+  without-loader-check:
+    description: 'Disable the ioncube loader installation verification'
+    required: true
+    default: true
+    type: boolean
+  preamble-file:
+    description: 'File for insert into header of all encoded files'
+    required: true
+    default: ''
+    type: string
+
+  # License options
+  passphrase:
+    description: 'Text to identify and encode the project unically'
+    required: true
+    default: ''
+    type: string
+  license-check:
+    description: 'Mode of license validation for encoded files'
+    required: true
+    default: 'auto'
     type: choice
     options:
-      - 86
-      - 64
+      - 'auto'
+      - 'script'
+  with-license:
+    description: 'The license file path at runtime environment'
+    required: true
+    default: ''
+    type: string
+  callback-file:
+    description: 'File to validate manually when license is invalid'
+    required: true
+    default: ''
+    type: string
 
 outputs:
   status:
