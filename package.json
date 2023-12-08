@@ -1,7 +1,7 @@
 {
   "name": "ioncube-encoder-action",
-  "description": "Github action for integrate your project encode with ioncube into your CI/CD pipeline.",
-  "version": "0.1.0",
+  "description": "Github action to automate IonCube encoding for your PHP project.",
+  "version": "1.0.0",
   "type": "module",
   "author": "MuriloChianfa <murilo.chianfa@outlook.com>",
   "private": true,

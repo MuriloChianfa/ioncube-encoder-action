@@ -7,6 +7,7 @@ var __webpack_exports__ = {};
 /**
  * The entrypoint for the action.
  */
-import main from './main'
+const { run } = require('./main')
 
-main.run()
+run()
+
