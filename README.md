@@ -40,7 +40,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: IonCube Encode
-      uses: murilochianfa/ioncube-encode-action@v1.0.0
+      uses: MuriloChianfa/ioncube-encoder-action@v1.0.0
       with:
         source: 'src'
         output: 'encrypted'
@@ -65,7 +65,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: IonCube Encode Project
-      uses: murilochianfa/ioncube-encode-action@v1.0.0
+      uses: MuriloChianfa/ioncube-encoder-action@v1.0.0
       with:
         source: 'src'
         output: 'encrypted'
@@ -76,7 +76,7 @@ jobs:
         callback-file: /opt/project/public/ioncube.php
 
     - name: IonCube Encode Callback File
-      uses: murilochianfa/ioncube-encode-action@v1.0.0
+      uses: MuriloChianfa/ioncube-encoder-action@v1.0.0
       with:
         source: 'src/public/ioncube.php'
         output: 'encrypted/public/ioncube.php'
