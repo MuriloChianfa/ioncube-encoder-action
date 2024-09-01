@@ -1,21 +1,21 @@
 {
-  "name": "javascript-action",
-  "description": "GitHub Actions JavaScript Template",
-  "version": "0.0.0",
-  "author": "",
+  "name": "ioncube-encoder-action",
+  "description": "Github action to automate IonCube encoding for your PHP project.",
+  "version": "1.1.0",
+  "author": "MuriloChianfa <murilo.chianfa@outlook.com>",
   "private": true,
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/MuriloChianfa/ioncube-encoder-action",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/MuriloChianfa/ioncube-encoder-action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/MuriloChianfa/ioncube-encoder-action/issues"
   },
   "keywords": [
-    "GitHub",
-    "Actions",
-    "JavaScript"
+    "Ioncube",
+    "Laravel",
+    "PHP"
   ],
   "exports": {
     ".": "./dist/index.js"
