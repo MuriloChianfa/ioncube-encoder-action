@@ -119,6 +119,7 @@ Explore a complete example of a workflow that utilizes this action in the <a hre
 ## Testing this package
 
 ```bash
+npm run install
 npm run lint
 npm run test
 npm run package
