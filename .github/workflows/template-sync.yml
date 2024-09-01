@@ -1,0 +1,22 @@
+name: template-sync
+
+on:
+  workflow_dispatch:
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v2
+        with:
+          source_repo_path: actions/javascript-action
+          upstream_branch: main
+          pr_labels: chore,template,sync
