@@ -1,5 +1,7 @@
 name: 'ioncube-encoder-action'
-description: 'Github action for integrate your project encode with ioncube into your CI/CD pipeline.'
+description:
+  'Github action for integrate your project encode with ioncube into your CI/CD
+  pipeline.'
 author: 'MuriloChianfa'
 
 inputs:
@@ -10,7 +12,8 @@ inputs:
     default: false
     type: boolean
   template:
-    description: 'The template to choose the best parameters for type of projects'
+    description:
+      'The template to choose the best parameters for type of projects'
     required: false
     default: laravel
     type: choice
@@ -60,7 +63,8 @@ inputs:
 
   # Reflection API
   allow-reflection:
-    description: 'Name or glob to funcions or classes for allow the reflection API'
+    description:
+      'Name or glob to funcions or classes for allow the reflection API'
     required: false
     default: ''
     type: string
