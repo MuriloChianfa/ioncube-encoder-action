@@ -1,4 +1,4 @@
-name: template-sync
+name: Template SYNC
 
 on:
   workflow_dispatch:
@@ -17,6 +17,11 @@ jobs:
       - name: actions-template-sync
         uses: AndreasAugustin/actions-template-sync@v2
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_passpharse: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_name: ${{ secrets.GIT_USERNAME }}
+          git_user_email: ${{ secrets.GIT_USER_EMAIL }}
           source_repo_path: actions/javascript-action
           upstream_branch: main
           pr_labels: chore,template,sync
