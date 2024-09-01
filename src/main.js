@@ -1,5 +1,7 @@
 const core = require('@actions/core')
-const { wait } = require('./wait')
+const exec = require('@actions/exec')
+const validate = require('./validate')
+const binary = require('./inputs/binary')
 
 /**
  * The main function for the action.
@@ -7,20 +9,89 @@ const { wait } = require('./wait')
  */
 async function run() {
   try {
-    const ms = core.getInput('milliseconds', { required: true })
+    const inputs = await validate()
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    if (!inputs.trial) {
+      // TODO: activate ioncube
+    }
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    let myOutput = ''
+    let myError = ''
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    const options = {}
+    options.listeners = {
+      stdout: data => {
+        myOutput += data.toString()
+      },
+      stderr: data => {
+        myError += data.toString()
+      }
+    }
+    options.silent = false
+    options.failOnStdErr = false
+    options.ignoreReturnCode = false
+
+    let customOptions = ''
+
+    if (inputs.binary === true) {
+      customOptions += ' --binary'
+    }
+
+    if (inputs.comments === false) {
+      customOptions += ' --no-doc-comments'
+    }
+
+    if (inputs.encrypt !== '') {
+      customOptions += ` --encrypt "${inputs.encrypt}"`
+    }
+
+    if (inputs.optimize === 'more' || inputs.optimize === 'max') {
+      customOptions += ` --optimize ${inputs.optimize}`
+    }
+
+    if (inputs.reflection === true) {
+      customOptions += ` --allow-reflection-all`
+    } else if (inputs.reflection !== '') {
+      customOptions += ` --allow-reflection ${inputs.reflection}`
+    }
+
+    if (inputs.preamble !== '') {
+      customOptions += ` --preamble-file ${inputs.preamble}`
+    }
+
+    if (inputs.passphrase !== '') {
+      customOptions += ` --passphrase "${inputs.passphrase}"`
+    }
+
+    if (inputs.license !== '') {
+      customOptions += ` --with-license ${inputs.license}`
+    }
+
+    if (inputs.callback !== '') {
+      customOptions += ` --callback-file "${inputs.callback}"`
+    }
+
+    if (inputs.check === 'auto' || inputs.check === 'script') {
+      customOptions += ` --license-check ${inputs.check}`
+    }
+
+    customOptions.trim()
+
+    const command = `${inputs.ioncube} -${inputs.encoderVersion} -${inputs.phpTargetVersion} -${inputs.arch} ${inputs.input} -o ${inputs.output} ${customOptions} --create-target --replace-target`
+    // core.debug(command)
+    try {
+      const exitCode = await exec.exec(command, [], options)
+      core.debug(exitCode)
+    } catch (error) {
+      core.error(error)
+    }
+
+    core.debug(myOutput)
+    core.debug(myError)
+
+    core.setOutput('status', 'Project encoded with success')
   } catch (error) {
-    // Fail the workflow run if an error occurs
+    // TODO: deactivate ioncube
     core.setFailed(error.message)
   }
 }
