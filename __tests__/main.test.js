@@ -13,125 +13,84 @@ const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
 // Mock the action's main function
 const runMock = jest.spyOn(main, 'run')
 
+// Other utilities
+const timeRegex = /^\d{2}:\d{2}:\d{2}/
+
 describe('action', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('run succefully with default args', async () => {
-    await main.run()
-    expect(runMock).toHaveReturned()
-
-    // Verify that all of the core library functions were called correctly with default values
-    expect(debugMock).toHaveBeenNthCalledWith(
-      1,
-      'Encoding files using template: php'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      2,
-      'Using encoder version: current'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      3,
-      'Using PHP target version: 8.2'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      4,
-      'Using target architecture: x86-64'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(5, 'Using input files: .')
-    expect(debugMock).toHaveBeenNthCalledWith(6, 'Using output path: encrypted')
-    expect(debugMock).toHaveBeenNthCalledWith(7, 'Using reflection for: NONE')
-    expect(debugMock).toHaveBeenNthCalledWith(8, 'Encrypting files: NONE')
-    expect(debugMock).toHaveBeenNthCalledWith(9, 'Encoding into ASCII format')
-    expect(debugMock).toHaveBeenNthCalledWith(10, 'Using optimization: more')
-    expect(debugMock).toHaveBeenNthCalledWith(11, 'Now allow doc comments')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      12,
-      'Checking for loader in environment'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(13, 'Adding preamble file: NONE')
-    expect(debugMock).toHaveBeenNthCalledWith(14, 'Using passphrase: NONE')
-    expect(debugMock).toHaveBeenNthCalledWith(15, 'Using license check: auto')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      16,
-      'Using license file in runtime path: NONE'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      17,
-      'Using callback file in runtime path: NONE'
-    )
-
-    // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(19, '')
-    expect(debugMock).toHaveBeenNthCalledWith(20, '')
-
-    expect(setOutputMock).toHaveBeenCalledWith(
-      'status',
-      'Project encoded with success'
-    )
-  }, 20000)
-
-  it('run succefully with laravel template', async () => {
+  it('sets the time output', async () => {
+    // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation(name => {
-      if (name === 'template') return 'laravel'
+      switch (name) {
+        case 'milliseconds':
+          return '500'
+        default:
+          return ''
+      }
     })
 
     await main.run()
     expect(runMock).toHaveReturned()
 
-    // Verify that all of the core library functions were called correctly with default values
-    expect(debugMock).toHaveBeenNthCalledWith(
-      1,
-      'Encoding files using template: laravel'
-    )
+    // Verify that all of the core library functions were called correctly
+    expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
     expect(debugMock).toHaveBeenNthCalledWith(
       2,
-      'Using encoder version: current'
+      expect.stringMatching(timeRegex)
     )
     expect(debugMock).toHaveBeenNthCalledWith(
       3,
-      'Using PHP target version: 8.2'
+      expect.stringMatching(timeRegex)
     )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      4,
-      'Using target architecture: x86-64'
+    expect(setOutputMock).toHaveBeenNthCalledWith(
+      1,
+      'time',
+      expect.stringMatching(timeRegex)
     )
-    expect(debugMock).toHaveBeenNthCalledWith(5, 'Using input files: .')
-    expect(debugMock).toHaveBeenNthCalledWith(6, 'Using output path: encrypted')
-    expect(debugMock).toHaveBeenNthCalledWith(7, 'Allowing reflection for all')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      8,
-      'Encrypting files: *.blade.php'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(9, 'Encoding into binary format')
-    expect(debugMock).toHaveBeenNthCalledWith(10, 'Using optimization: max')
-    expect(debugMock).toHaveBeenNthCalledWith(11, 'Now allow doc comments')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      12,
-      'Not checking for loader in environment'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(13, 'Adding preamble file: NONE')
-    expect(debugMock).toHaveBeenNthCalledWith(14, 'Using passphrase: CHANGEME')
-    expect(debugMock).toHaveBeenNthCalledWith(15, 'Using license check: script')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      16,
-      'Using license file in runtime path: /opt/license'
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      17,
-      'Using callback file in runtime path: public/ioncube.php'
-    )
+  })
 
-    // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(19, '')
-    expect(debugMock).toHaveBeenNthCalledWith(20, '')
+  it('sets a failed status', async () => {
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        case 'milliseconds':
+          return 'this is not a number'
+        default:
+          return ''
+      }
+    })
 
-    expect(setOutputMock).toHaveBeenCalledWith(
-      'status',
-      'Project encoded with success'
+    await main.run()
+    expect(runMock).toHaveReturned()
+
+    // Verify that all of the core library functions were called correctly
+    expect(setFailedMock).toHaveBeenNthCalledWith(
+      1,
+      'milliseconds not a number'
+    )
+  })
+
+  it('fails if no input is provided', async () => {
+    // Set the action's inputs as return values from core.getInput()
+    getInputMock.mockImplementation(name => {
+      switch (name) {
+        case 'milliseconds':
+          throw new Error('Input required and not supplied: milliseconds')
+        default:
+          return ''
+      }
+    })
+
+    await main.run()
+    expect(runMock).toHaveReturned()
+
+    // Verify that all of the core library functions were called correctly
+    expect(setFailedMock).toHaveBeenNthCalledWith(
+      1,
+      'Input required and not supplied: milliseconds'
     )
   })
 })

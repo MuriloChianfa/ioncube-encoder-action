@@ -1,140 +1,18 @@
-name: 'ioncube-encoder-action'
-description: 'Github action for integrate your project encode with ioncube into your CI/CD pipeline.'
-author: 'MuriloChianfa'
+name: 'The name of your action here'
+description: 'Provide a description here'
+author: 'Your name or organization here'
 
+# Define your inputs here.
 inputs:
-  # Basic inputs
-  trial:
-    description: 'Encode file with trial version of ioncube'
-    required: false
-    default: false
-    type: boolean
-  template:
-    description: 'The template to choose the best parameters for type of projects'
-    required: false
-    default: laravel
-    type: choice
-    options:
-      - laravel
-      - php
+  milliseconds:
+    description: 'Your input description here'
+    required: true
+    default: '1000'
 
-  # Encoder inputs
-  encoder-version:
-    description: 'Ioncube encoder version'
-    required: false
-    default: 'current'
-    type: choice
-    options:
-      - current
-      - legacy
-      - obsolete
-  php-target-version:
-    description: 'PHP encoded files target version'
-    required: false
-    default: '8.2'
-    type: choice
-    options:
-      - '8.2'
-      - '8.1'
-      - '8.0'
-  arch:
-    description: 'Architecture of target environment runner'
-    required: false
-    default: 64
-    type: choice
-    options:
-      - 86
-      - 64
-
-  # File inputs
-  source:
-    description: 'The source path or file to encode'
-    required: false
-    default: ''
-    type: string
-  output:
-    description: 'The output path or file encoded'
-    required: false
-    default: 'encrypted'
-    type: string
-
-  # Reflection API
-  allow-reflection:
-    description: 'Name or glob to funcions or classes for allow the reflection API'
-    required: false
-    default: ''
-    type: string
-  allow-reflection-all:
-    description: 'Allow the reflection API at all the PHP code'
-    required: false
-    default: false
-    type: boolean
-
-  # Files customization
-  encrypt:
-    description: 'Name or glob to files to encrypt'
-    required: false
-    default: ''
-    type: string
-  binary:
-    description: 'Encode files in binary format'
-    required: false
-    default: false
-    type: boolean
-  optimize:
-    description: 'Level of encoding performance'
-    required: false
-    default: 'more'
-    type: choice
-    options:
-      - 'more'
-      - 'max'
-
-  # Output customizations
-  no-doc-comments:
-    description: 'Not allow doc comments on encoded files'
-    required: false
-    default: true
-    type: boolean
-  without-loader-check:
-    description: 'Disable the ioncube loader installation verification'
-    required: false
-    default: true
-    type: boolean
-  preamble-file:
-    description: 'File for insert into header of all encoded files'
-    required: false
-    default: ''
-    type: string
-
-  # License options
-  passphrase:
-    description: 'Text to identify and encode the project unically'
-    required: false
-    default: ''
-    type: string
-  license-check:
-    description: 'Mode of license validation for encoded files'
-    required: false
-    default: 'auto'
-    type: choice
-    options:
-      - 'auto'
-      - 'script'
-  with-license:
-    description: 'The license file path at runtime environment'
-    required: false
-    default: ''
-    type: string
-  callback-file:
-    description: 'File to validate manually when license is invalid'
-    required: false
-    default: ''
-    type: string
-
+# Define your outputs here.
 outputs:
-  status:
-    description: 'The message of encode proccess'
+  time:
+    description: 'Your output description here'
 
 runs:
   using: node20
