@@ -4342,11 +4342,11 @@ module.exports = async function evaluation() {
 module.exports = async function encoder() {
   const cwd = process.cwd()
 
-  let downloadUrl = IONCUBE_EVAL_URL
+  let downloadUrl = process.env.IONCUBE_DOWNLOAD_URL
   let path = ENCODER_PATH
   let ioncube_folder = `${cwd}/ioncube_encoder`
   if (!process.env.IONCUBE_DOWNLOAD_URL) {
-    downloadUrl = process.env.IONCUBE_DOWNLOAD_URL
+    downloadUrl = process.env.IONCUBE_EVAL_URL
     path = EVALUATION_PATH
     ioncube_folder = __nccwpck_require__.ab + "ioncube_encoder_evaluation"
   }
