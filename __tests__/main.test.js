@@ -19,6 +19,10 @@ describe('action', () => {
   })
 
   it('run succefully with default args', async () => {
+    getInputMock.mockImplementation(name => {
+      if (name === 'trial') return true
+    })
+
     await main.run()
     expect(runMock).toHaveReturned()
 
@@ -63,19 +67,24 @@ describe('action', () => {
     )
 
     // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(19, '')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      18,
+      './ioncube_encoder_evaluation/ioncube_encoder.sh -C -82 -x86-64 /home/murilo/Github/ioncube-encoder-action/src/inputs -o encrypted  --no-doc-comments --optimize more --license-check auto --create-target --replace-target'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(19, 0)
     expect(debugMock).toHaveBeenNthCalledWith(20, '')
+    expect(debugMock).toHaveBeenNthCalledWith(21, '')
 
     expect(setOutputMock).toHaveBeenCalledWith(
       'status',
       'Project encoded with success'
     )
-  }, 20000)
+  }, 200000)
 
   it('run succefully with laravel template', async () => {
     getInputMock.mockImplementation(name => {
       if (name === 'template') return 'laravel'
+      if (name === 'trial') return true
     })
 
     await main.run()
@@ -125,13 +134,17 @@ describe('action', () => {
     )
 
     // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(19, '')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      18,
+      './ioncube_encoder_evaluation/ioncube_encoder.sh -C -82 -x86-64 /home/murilo/Github/ioncube-encoder-action/src/inputs -o encrypted  --binary --no-doc-comments --encrypt "*.blade.php" --optimize max --allow-reflection-all --passphrase "CHANGEME" --with-license /opt/license --callback-file "public/ioncube.php" --license-check script --create-target --replace-target'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(19, 0)
     expect(debugMock).toHaveBeenNthCalledWith(20, '')
+    expect(debugMock).toHaveBeenNthCalledWith(21, '')
 
     expect(setOutputMock).toHaveBeenCalledWith(
       'status',
       'Project encoded with success'
     )
-  })
+  }, 200000)
 })

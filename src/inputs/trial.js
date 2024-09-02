@@ -1,5 +1,6 @@
 const core = require('@actions/core')
 const evaluation = require('../evaluation')
+const encoder = require('../evaluation')
 
 /**
  * Validate trial input values.
@@ -12,6 +13,5 @@ module.exports = async function validateTrial() {
     return await evaluation()
   }
 
-  // TODO: add a default path parameter
-  return 'ioncube_encoder.sh'
+  return await encoder()
 }

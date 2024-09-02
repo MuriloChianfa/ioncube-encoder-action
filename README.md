@@ -28,6 +28,8 @@ proprietary codebase.
 
 - **Configure Workflow**: Copy the example workflow into your project's
   .github/workflows directory, adjusting parameters as needed.
+- **Setup secrets**: Setup the needed action secrets into your repository
+  .github/workflows directory, adjusting parameters as needed.
 - **Run Workflow**: Push your changes to trigger the IonCube encoding workflow
   and enjoy the automated process.
 
@@ -49,7 +51,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: IonCube Encode
-        uses: MuriloChianfa/ioncube-encoder-action@v1.0.0
+        uses: MuriloChianfa/ioncube-encoder-action@v1.1.0
+        # If you're dont using trial version you need to setup the ioncube download url
+        # env:
+        #   IONCUBE_DOWNLOAD_URL: ${{ secrets.IONCUBE_DOWNLOAD_URL }}
         with:
           source: 'src'
           output: 'encrypted'
@@ -76,7 +81,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: IonCube Encode Project
-        uses: MuriloChianfa/ioncube-encoder-action@v1.0.0
+        uses: MuriloChianfa/ioncube-encoder-action@v1.1.0
+        # If you're dont using trial version you need to setup the ioncube download url
+        # env:
+        #   IONCUBE_DOWNLOAD_URL: ${{ secrets.IONCUBE_DOWNLOAD_URL }}
         with:
           source: 'src'
           output: 'encrypted'
@@ -87,7 +95,10 @@ jobs:
           callback-file: /opt/project/public/ioncube.php
 
       - name: IonCube Encode Callback File
-        uses: MuriloChianfa/ioncube-encoder-action@v1.0.0
+        uses: MuriloChianfa/ioncube-encoder-action@v1.1.0
+        # If you're dont using trial version you need to setup the ioncube download url
+        # env:
+        #   IONCUBE_DOWNLOAD_URL: ${{ secrets.IONCUBE_DOWNLOAD_URL }}
         with:
           source: 'src/public/ioncube.php'
           output: 'encrypted/public/ioncube.php'
@@ -145,10 +156,15 @@ project</a>.
 ## Testing this package
 
 ```bash
-npm run install
+npm install
+```
+
+```bash
 npm run lint
 npm run test
-npm run package
+npm run bundle
+# or simple
+npm run all
 ```
 
 ### Dependencies

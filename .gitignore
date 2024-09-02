@@ -107,6 +107,8 @@ encrypted
 eval_linux
 ioncube_encoder_evaluation
 ioncube_encoder_evaluation.tar.gz
+ioncube_encoder.tar.gz
+ioncube_encoder
 
 # Devcontainer
 .devcontainer

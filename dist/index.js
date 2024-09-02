@@ -4307,6 +4307,8 @@ exports["default"] = _default;
 
 const core = __nccwpck_require__(2186)
 const EVALUATION_PATH = './ioncube_encoder_evaluation/ioncube_encoder.sh'
+const ENCODER_PATH = './ioncube_encoder/ioncube_encoder.sh'
+const IONCUBE_EVAL_URL = 'https://www.ioncube.com/eval_linux'
 const tar = __nccwpck_require__(6630)
 const fs = __nccwpck_require__(7147)
 const cp = __nccwpck_require__(2081)
@@ -4319,19 +4321,48 @@ const process = __nccwpck_require__(7282)
 module.exports = async function evaluation() {
   const cwd = process.cwd()
 
-  if (!fs.existsSync('ioncube_encoder_evaluation')) {
-    await download(
-      'https://www.ioncube.com/eval_linux',
-      `${cwd}/ioncube_encoder_evaluation.tar.gz`
-    )
-    await tar.extract({ file: `${cwd}/ioncube_encoder_evaluation.tar.gz` })
+  const gzip_evaluation_path = `${cwd}/ioncube_encoder_evaluation.tar.gz`
 
-    if (fs.existsSync(`${cwd}/ioncube_encoder_evaluation.tar.gz`)) {
-      fs.unlinkSync(`${cwd}/ioncube_encoder_evaluation.tar.gz`)
+  if (!fs.existsSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation")) {
+    await download(IONCUBE_EVAL_URL, gzip_evaluation_path)
+    await tar.extract({ file: gzip_evaluation_path })
+
+    if (fs.existsSync(gzip_evaluation_path)) {
+      fs.unlinkSync(gzip_evaluation_path)
     }
   }
 
   return EVALUATION_PATH
+}
+
+/**
+ * Download ioncube licensed version.
+ * @returns {Promise<string>} Returns the path of encoder.
+ */
+module.exports = async function encoder() {
+  const cwd = process.cwd()
+
+  let downloadUrl = IONCUBE_EVAL_URL
+  let path = ENCODER_PATH
+  let ioncube_folder = `${cwd}/ioncube_encoder`
+  if (!process.env.IONCUBE_DOWNLOAD_URL) {
+    downloadUrl = process.env.IONCUBE_DOWNLOAD_URL
+    path = EVALUATION_PATH
+    ioncube_folder = __nccwpck_require__.ab + "ioncube_encoder_evaluation"
+  }
+
+  const gzip_encoder_path = `${cwd}/ioncube_encoder.tar.gz`
+
+  if (!fs.existsSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation")) {
+    await download(downloadUrl, gzip_encoder_path)
+    await tar.extract({ file: gzip_encoder_path })
+
+    if (fs.existsSync(gzip_encoder_path)) {
+      fs.unlinkSync(gzip_encoder_path)
+    }
+  }
+
+  return path
 }
 
 const download = async (uri, filename) => {
@@ -4731,6 +4762,7 @@ module.exports = function validateTemplate() {
 
 const core = __nccwpck_require__(2186)
 const evaluation = __nccwpck_require__(5431)
+const encoder = __nccwpck_require__(5431)
 
 /**
  * Validate trial input values.
@@ -4743,8 +4775,7 @@ module.exports = async function validateTrial() {
     return await evaluation()
   }
 
-  // TODO: add a default path parameter
-  return 'ioncube_encoder.sh'
+  return await encoder()
 }
 
 
@@ -4756,97 +4787,129 @@ module.exports = async function validateTrial() {
 const core = __nccwpck_require__(2186)
 const exec = __nccwpck_require__(1514)
 const validate = __nccwpck_require__(1002)
-const binary = __nccwpck_require__(6585)
 
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
-  try {
-    const inputs = await validate()
+  const inputs = await validate()
 
-    if (!inputs.trial) {
-      // TODO: activate ioncube
+  let myOutput = ''
+  let myError = ''
+
+  const options = {}
+  options.listeners = {
+    stdout: data => {
+      myOutput += data.toString()
+    },
+    stderr: data => {
+      myError += data.toString()
     }
+  }
+  options.silent = false
+  options.failOnStdErr = false
+  options.ignoreReturnCode = false
 
-    let myOutput = ''
-    let myError = ''
-
-    const options = {}
-    options.listeners = {
-      stdout: data => {
-        myOutput += data.toString()
-      },
-      stderr: data => {
-        myError += data.toString()
-      }
-    }
-    options.silent = false
-    options.failOnStdErr = false
-    options.ignoreReturnCode = false
-
-    let customOptions = ''
-
-    if (inputs.binary === true) {
-      customOptions += ' --binary'
-    }
-
-    if (inputs.comments === false) {
-      customOptions += ' --no-doc-comments'
-    }
-
-    if (inputs.encrypt !== '') {
-      customOptions += ` --encrypt "${inputs.encrypt}"`
-    }
-
-    if (inputs.optimize === 'more' || inputs.optimize === 'max') {
-      customOptions += ` --optimize ${inputs.optimize}`
-    }
-
-    if (inputs.reflection === true) {
-      customOptions += ` --allow-reflection-all`
-    } else if (inputs.reflection !== '') {
-      customOptions += ` --allow-reflection ${inputs.reflection}`
-    }
-
-    if (inputs.preamble !== '') {
-      customOptions += ` --preamble-file ${inputs.preamble}`
-    }
-
-    if (inputs.passphrase !== '') {
-      customOptions += ` --passphrase "${inputs.passphrase}"`
-    }
-
-    if (inputs.license !== '') {
-      customOptions += ` --with-license ${inputs.license}`
-    }
-
-    if (inputs.callback !== '') {
-      customOptions += ` --callback-file "${inputs.callback}"`
-    }
-
-    if (inputs.check === 'auto' || inputs.check === 'script') {
-      customOptions += ` --license-check ${inputs.check}`
-    }
-
-    customOptions.trim()
-
-    const command = `${inputs.ioncube} -${inputs.encoderVersion} -${inputs.phpTargetVersion} -${inputs.arch} ${inputs.input} -o ${inputs.output} ${customOptions} --create-target --replace-target`
-    // core.debug(command)
+  if (!inputs.trial && process.env.IONCUBE_DOWNLOAD_URL) {
     try {
-      const exitCode = await exec.exec(command, [], options)
+      const exitCode = await exec.exec(
+        `${inputs.ioncube} --activate`,
+        [],
+        options
+      )
       core.debug(exitCode)
     } catch (error) {
       core.error(error)
     }
+  }
 
+  myOutput = ''
+  myError = ''
+
+  let customOptions = ''
+
+  if (inputs.binary === true) {
+    customOptions += ' --binary'
+  }
+
+  if (inputs.comments === false) {
+    customOptions += ' --no-doc-comments'
+  }
+
+  if (inputs.encrypt !== '') {
+    customOptions += ` --encrypt "${inputs.encrypt}"`
+  }
+
+  if (inputs.optimize === 'more' || inputs.optimize === 'max') {
+    customOptions += ` --optimize ${inputs.optimize}`
+  }
+
+  if (inputs.reflection === true) {
+    customOptions += ` --allow-reflection-all`
+  } else if (inputs.reflection !== '') {
+    customOptions += ` --allow-reflection ${inputs.reflection}`
+  }
+
+  if (inputs.preamble !== '') {
+    customOptions += ` --preamble-file ${inputs.preamble}`
+  }
+
+  if (inputs.passphrase !== '') {
+    customOptions += ` --passphrase "${inputs.passphrase}"`
+  }
+
+  if (inputs.license !== '') {
+    customOptions += ` --with-license ${inputs.license}`
+  }
+
+  if (inputs.callback !== '') {
+    customOptions += ` --callback-file "${inputs.callback}"`
+  }
+
+  if (inputs.check === 'auto' || inputs.check === 'script') {
+    customOptions += ` --license-check ${inputs.check}`
+  }
+
+  customOptions.trim()
+
+  try {
+    const command = `${inputs.ioncube} -${inputs.encoderVersion} -${inputs.phpTargetVersion} -${inputs.arch} ${inputs.input} -o ${inputs.output} ${customOptions} --create-target --replace-target`
+    core.debug(command)
+
+    let exitCode = await exec.exec(command, [], options)
+    core.debug(exitCode)
     core.debug(myOutput)
     core.debug(myError)
 
+    if (!inputs.trial && process.env.IONCUBE_DOWNLOAD_URL) {
+      myOutput = ''
+      myError = ''
+
+      exitCode = await exec.exec(`${inputs.ioncube} --deactivate`, [], options)
+
+      core.debug(exitCode)
+      core.debug(myOutput)
+      core.debug(myError)
+    }
+
     core.setOutput('status', 'Project encoded with success')
   } catch (error) {
-    // TODO: deactivate ioncube
+    if (!inputs.trial && process.env.IONCUBE_DOWNLOAD_URL) {
+      myOutput = ''
+      myError = ''
+
+      const exitCode = await exec.exec(
+        `${inputs.ioncube} --deactivate`,
+        [],
+        options
+      )
+
+      core.debug(exitCode)
+      core.debug(myOutput)
+      core.debug(myError)
+    }
+
     core.setFailed(error.message)
   }
 }
