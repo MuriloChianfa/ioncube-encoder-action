@@ -136,7 +136,7 @@ describe('action', () => {
     // No errors
     expect(debugMock).toHaveBeenNthCalledWith(
       18,
-      './ioncube_encoder_evaluation/ioncube_encoder.sh -C -82 -x86-64 /home/murilo/Github/ioncube-encoder-action/src/inputs -o encrypted  --binary --no-doc-comments --encrypt "*.blade.php" --optimize max --allow-reflection-all --passphrase "CHANGEME" --with-license /opt/license --callback-file "public/ioncube.php" --license-check script --create-target --replace-target'
+      './ioncube_encoder_evaluation/ioncube_encoder.sh -C -82 -x86-64 /home/runner/work/ioncube-encoder-action/ioncube-encoder-action/src/inputs -o encrypted  --binary --no-doc-comments --encrypt \"*.blade.php\" --optimize max --allow-reflection-all --passphrase \"CHANGEME\" --with-license /opt/license --callback-file \"public/ioncube.php\" --license-check script --create-target --replace-target'
     )
     expect(debugMock).toHaveBeenNthCalledWith(19, 0)
     expect(debugMock).toHaveBeenNthCalledWith(20, '')
