@@ -4346,7 +4346,7 @@ module.exports = async function encoder() {
   let path = ENCODER_PATH
   let ioncube_folder = `${cwd}/ioncube_encoder`
   if (!process.env.IONCUBE_DOWNLOAD_URL) {
-    downloadUrl = process.env.IONCUBE_EVAL_URL
+    downloadUrl = IONCUBE_EVAL_URL
     path = EVALUATION_PATH
     ioncube_folder = __nccwpck_require__.ab + "ioncube_encoder_evaluation"
   }
@@ -4875,7 +4875,6 @@ async function run() {
 
   try {
     const command = `${inputs.ioncube} -${inputs.encoderVersion} -${inputs.phpTargetVersion} -${inputs.arch} ${inputs.input} -o ${inputs.output} ${customOptions} --create-target --replace-target`
-    core.debug(command)
 
     let exitCode = await exec.exec(command, [], options)
     core.debug(exitCode)

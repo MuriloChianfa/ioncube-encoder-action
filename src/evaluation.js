@@ -59,5 +59,6 @@ module.exports = async function encoder() {
 }
 
 const download = async (uri, filename) => {
-  cp.execSync(`wget ${uri} -O ${filename}`)
+  let download = uri ?? IONCUBE_EVAL_URL
+  cp.execSync(`wget ${download} -O ${filename}`)
 }

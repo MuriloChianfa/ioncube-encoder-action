@@ -89,7 +89,6 @@ async function run() {
 
   try {
     const command = `${inputs.ioncube} -${inputs.encoderVersion} -${inputs.phpTargetVersion} -${inputs.arch} ${inputs.input} -o ${inputs.output} ${customOptions} --create-target --replace-target`
-    core.debug(command)
 
     let exitCode = await exec.exec(command, [], options)
     core.debug(exitCode)
