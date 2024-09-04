@@ -1,7 +1,7 @@
 {
   "name": "ioncube-encoder-action",
   "description": "Github action to automate IonCube encoding for your PHP project.",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "author": "MuriloChianfa <murilo.chianfa@outlook.com>",
   "private": true,
   "homepage": "https://github.com/MuriloChianfa/ioncube-encoder-action",

@@ -1,4 +1,5 @@
 const core = require('@actions/core')
+const exec = require('@actions/exec')
 const EVALUATION_PATH = './ioncube_encoder_evaluation/ioncube_encoder.sh'
 const ENCODER_PATH = './ioncube_encoder/ioncube_encoder.sh'
 const IONCUBE_EVAL_URL = 'https://www.ioncube.com/eval_linux'
@@ -48,7 +49,35 @@ module.exports = async function encoder() {
 
   if (!fs.existsSync(ioncube_folder)) {
     await download(downloadUrl, gzip_encoder_path)
-    await tar.extract({ file: gzip_encoder_path })
+
+    if (!fs.existsSync(ioncube_folder)) {
+      fs.mkdirSync(ioncube_folder, { recursive: true })
+    }
+
+    if (!fs.existsSync(ioncube_folder)) {
+      fs.mkdirSync(ioncube_folder, { recursive: true })
+    }
+
+    let myOutput = ''
+    let myError = ''
+
+    const options = {}
+    options.listeners = {
+      stdout: data => {
+        myOutput += data.toString()
+      },
+      stderr: data => {
+        myError += data.toString()
+      }
+    }
+    options.silent = false
+    options.failOnStdErr = false
+    options.ignoreReturnCode = false
+    await exec.exec(
+      `tar -xzvf ioncube_encoder.tar.gz -C ${ioncube_folder} --strip-components=1`,
+      [],
+      options
+    )
 
     if (fs.existsSync(gzip_encoder_path)) {
       fs.unlinkSync(gzip_encoder_path)

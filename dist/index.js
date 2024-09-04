@@ -4306,6 +4306,7 @@ exports["default"] = _default;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const core = __nccwpck_require__(2186)
+const exec = __nccwpck_require__(1514)
 const EVALUATION_PATH = './ioncube_encoder_evaluation/ioncube_encoder.sh'
 const ENCODER_PATH = './ioncube_encoder/ioncube_encoder.sh'
 const IONCUBE_EVAL_URL = 'https://www.ioncube.com/eval_linux'
@@ -4355,7 +4356,35 @@ module.exports = async function encoder() {
 
   if (!fs.existsSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation")) {
     await download(downloadUrl, gzip_encoder_path)
-    await tar.extract({ file: gzip_encoder_path })
+
+    if (!fs.existsSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation")) {
+      fs.mkdirSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation", { recursive: true })
+    }
+
+    if (!fs.existsSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation")) {
+      fs.mkdirSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation", { recursive: true })
+    }
+
+    let myOutput = ''
+    let myError = ''
+
+    const options = {}
+    options.listeners = {
+      stdout: data => {
+        myOutput += data.toString()
+      },
+      stderr: data => {
+        myError += data.toString()
+      }
+    }
+    options.silent = false
+    options.failOnStdErr = false
+    options.ignoreReturnCode = false
+    await exec.exec(
+      `tar -xzvf ioncube_encoder.tar.gz -C ${ioncube_folder} --strip-components=1`,
+      [],
+      options
+    )
 
     if (fs.existsSync(gzip_encoder_path)) {
       fs.unlinkSync(gzip_encoder_path)
