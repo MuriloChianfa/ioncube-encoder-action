@@ -70,7 +70,7 @@ module.exports = async function encoder() {
     options.failOnStdErr = false
     options.ignoreReturnCode = false
     await exec.exec(
-      `tar -xzvf ${gzip_encoder_path} -C ${ioncube_folder} --strip-components=1`,
+      `tar -xzvf ${gzip_encoder_path} -C ${ioncube_folder.replace('/dist')} --strip-components=1`,
       [],
       options
     )
