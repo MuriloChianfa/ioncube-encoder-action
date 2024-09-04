@@ -39,10 +39,12 @@ module.exports = async function encoder() {
   let downloadUrl = process.env.IONCUBE_DOWNLOAD_URL
   let path = ENCODER_PATH
   let ioncube_folder = `${cwd}/ioncube_encoder`
+  let folder = 'ioncube_encoder'
   if (!process.env.IONCUBE_DOWNLOAD_URL) {
     downloadUrl = IONCUBE_EVAL_URL
     path = EVALUATION_PATH
     ioncube_folder = `${cwd}/ioncube_encoder_evaluation`
+    folder = 'ioncube_encoder_evaluation'
   }
 
   const gzip_encoder_path = `${cwd}/ioncube_encoder.tar.gz`
@@ -70,7 +72,7 @@ module.exports = async function encoder() {
     options.failOnStdErr = false
     options.ignoreReturnCode = false
     await exec.exec(
-      `tar -xzvf ${gzip_encoder_path} -C ${ioncube_folder.replace('/dist', '')} --strip-components=1`,
+      `tar -xzvf ${gzip_encoder_path} -C ${folder} --strip-components=1`,
       [],
       options
     )
