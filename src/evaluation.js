@@ -52,6 +52,10 @@ module.exports = async function encoder() {
   if (!fs.existsSync(folder)) {
     await download(downloadUrl, gzip_encoder_path)
 
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder, { recursive: true })
+    }
+
     let myOutput = ''
     let myError = ''
 
@@ -68,7 +72,7 @@ module.exports = async function encoder() {
     options.failOnStdErr = false
     options.ignoreReturnCode = false
     await exec.exec(
-      `mkdir ${folder} && tar -xzvf ${gzip_encoder_path} -C ${folder} --strip-components=1`,
+      `tar -xzvf ${gzip_encoder_path} -C ${folder} --strip-components=1`,
       [],
       options
     )
