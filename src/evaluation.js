@@ -49,11 +49,11 @@ module.exports = async function encoder() {
 
   const gzip_encoder_path = `${cwd}/ioncube_encoder.tar.gz`
 
-  if (!fs.existsSync(ioncube_folder)) {
+  if (!fs.existsSync(folder)) {
     await download(downloadUrl, gzip_encoder_path)
 
-    if (!fs.existsSync(ioncube_folder)) {
-      fs.mkdirSync(ioncube_folder, { recursive: true })
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder, { recursive: true })
     }
 
     let myOutput = ''
