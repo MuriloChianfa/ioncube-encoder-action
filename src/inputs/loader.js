@@ -5,7 +5,7 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated loader input.
  */
 module.exports = function validateLoader(standard = true) {
-  const loader = !(core.getInput('without-loader-check') ?? standard)
+  const loader = core.getInput('without-loader-check') ?? standard
   core.debug(
     loader === true
       ? 'Checking for loader in environment'
