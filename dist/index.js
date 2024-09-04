@@ -4616,7 +4616,7 @@ const core = __nccwpck_require__(2186)
  * @returns {bool|string} Returns a validated loader input.
  */
 module.exports = function validateLoader(standard = true) {
-  const loader = !(core.getInput('without-loader-check') ?? standard)
+  const loader = core.getInput('without-loader-check') ?? standard
   core.debug(
     loader === true
       ? 'Checking for loader in environment'
@@ -4973,7 +4973,7 @@ module.exports = function choose(template = 'php') {
     binary: false,
     optimize: 'more',
     comments: true,
-    loader: false,
+    loader: true,
     preamble: '',
     passphrase: '',
     check: 'auto',
@@ -5007,7 +5007,7 @@ module.exports = function laravel() {
     binary: true,
     optimize: 'max',
     comments: true, // without
-    loader: true, // without
+    loader: false, // without
     preamble: '',
     passphrase: 'CHANGEME',
     check: 'script',

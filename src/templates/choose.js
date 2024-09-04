@@ -20,7 +20,7 @@ module.exports = function choose(template = 'php') {
     binary: false,
     optimize: 'more',
     comments: true,
-    loader: false,
+    loader: true,
     preamble: '',
     passphrase: '',
     check: 'auto',

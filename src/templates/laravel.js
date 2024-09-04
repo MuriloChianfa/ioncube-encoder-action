@@ -14,7 +14,7 @@ module.exports = function laravel() {
     binary: true,
     optimize: 'max',
     comments: true, // without
-    loader: true, // without
+    loader: false, // without
     preamble: '',
     passphrase: 'CHANGEME',
     check: 'script',
