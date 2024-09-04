@@ -4361,10 +4361,6 @@ module.exports = async function encoder() {
       fs.mkdirSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation", { recursive: true })
     }
 
-    if (!fs.existsSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation")) {
-      fs.mkdirSync(__nccwpck_require__.ab + "ioncube_encoder_evaluation", { recursive: true })
-    }
-
     let myOutput = ''
     let myError = ''
 
@@ -4381,7 +4377,7 @@ module.exports = async function encoder() {
     options.failOnStdErr = false
     options.ignoreReturnCode = false
     await exec.exec(
-      `tar -xzvf ioncube_encoder.tar.gz -C ${ioncube_folder} --strip-components=1`,
+      `tar -xzvf ${gzip_encoder_path} -C ${ioncube_folder} --strip-components=1`,
       [],
       options
     )

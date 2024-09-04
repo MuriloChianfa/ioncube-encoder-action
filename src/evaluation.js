@@ -54,10 +54,6 @@ module.exports = async function encoder() {
       fs.mkdirSync(ioncube_folder, { recursive: true })
     }
 
-    if (!fs.existsSync(ioncube_folder)) {
-      fs.mkdirSync(ioncube_folder, { recursive: true })
-    }
-
     let myOutput = ''
     let myError = ''
 
@@ -74,7 +70,7 @@ module.exports = async function encoder() {
     options.failOnStdErr = false
     options.ignoreReturnCode = false
     await exec.exec(
-      `tar -xzvf ioncube_encoder.tar.gz -C ${ioncube_folder} --strip-components=1`,
+      `tar -xzvf ${gzip_encoder_path} -C ${ioncube_folder} --strip-components=1`,
       [],
       options
     )
