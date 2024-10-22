@@ -47,12 +47,36 @@ async function run() {
     customOptions += ' --binary'
   }
 
-  if (inputs.comments === false) {
-    customOptions += ' --no-doc-comments'
+  if (inputs.createTarget !== false) {
+    customOptions += ' --create-target'
+  }
+
+  if (inputs.replaceTarget !== false) {
+    customOptions += ' --replace-target'
   }
 
   if (inputs.encrypt !== '') {
     customOptions += ` --encrypt "${inputs.encrypt}"`
+  }
+
+  if (inputs.copy !== '') {
+    customOptions += ` --copy "${inputs.copy}"`
+  }
+
+  if (inputs.ignore !== '') {
+    customOptions += ` --ignore "${inputs.ignore}"`
+  }
+
+  if (inputs.skip !== '') {
+    customOptions += ` --skip "${inputs.skip}"`
+  }
+
+  if (inputs.obfuscate !== '') {
+    customOptions += ` --obfuscate "${inputs.obfuscate}"`
+  }
+
+  if (inputs.obfuscationKey !== '') {
+    customOptions += ` --obfuscation-key "${inputs.obfuscationKey}"`
   }
 
   if (inputs.optimize === 'more' || inputs.optimize === 'max') {

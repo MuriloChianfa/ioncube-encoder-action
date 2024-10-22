@@ -13,6 +13,13 @@ module.exports = function laravel() {
     encrypt: '*.blade.php',
     binary: true,
     optimize: 'max',
+    copy: '',
+    createTarget: true,
+    replaceTarget: true,
+    ignore: '*/cache/*',
+    obfuscate: 'classes',
+    obfuscationKey: 'CHANGEME',
+    skip: '*/vendor/*',
     comments: true, // without
     loader: false, // without
     preamble: '',

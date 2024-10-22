@@ -1,3 +1,4 @@
+const obfuscate = require('../inputs/obfuscate')
 const laravel = require('./laravel')
 
 const templates = {
@@ -14,6 +15,13 @@ module.exports = function choose(template = 'php') {
     phpTargetVersion: '8.2',
     arch: 64,
     input: '',
+    copy: '',
+    createTarget: false,
+    replaceTarget: false,
+    ignore: '',
+    obfuscate: 'none',
+    obfuscationKey: '',
+    skip: '',
     output: 'encrypted',
     reflection: false,
     encrypt: '',

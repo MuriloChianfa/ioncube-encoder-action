@@ -20,6 +20,13 @@ const validatePassphrase = require('./inputs/passphrase')
 const validateCheck = require('./inputs/check')
 const validateLicense = require('./inputs/license')
 const validateCallback = require('./inputs/callback')
+const validateCopy = require('./inputs/copy')
+const validateCreateTarget = require('./inputs/create-target')
+const validateReplaceTarget = require('./inputs/replace-target')
+const validateIgnore = require('./inputs/ignore')
+const validateObfuscate = require('./inputs/obfuscate')
+const validateObfuscationKey = require('./inputs/obfuscation-key')
+const validateSkip = require('./inputs/skip')
 
 /**
  * Set default arguments depending on inputed template.
@@ -51,6 +58,13 @@ module.exports = async function validate() {
     passphrase: validatePassphrase(defaults.passphrase),
     check: validateCheck(defaults.check),
     license: validateLicense(defaults.license),
-    callback: validateCallback(defaults.callback)
+    callback: validateCallback(defaults.callback),
+    createTarget: validateCreateTarget(defaults.createTarget),
+    replaceTarget: validateReplaceTarget(defaults.replaceTarget),
+    copy: validateCopy(defaults.copy),
+    ignore: validateIgnore(defaults.ignore),
+    skip: validateSkip(defaults.skip),
+    obfuscate: validateObfuscate(defaults.obfuscate),
+    obfuscationKey: validateObfuscationKey(defaults.obfuscationKey),
   }
 }
