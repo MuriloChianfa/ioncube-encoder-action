@@ -65,6 +65,6 @@ module.exports = async function validate() {
     ignore: validateIgnore(defaults.ignore),
     skip: validateSkip(defaults.skip),
     obfuscate: validateObfuscate(defaults.obfuscate),
-    obfuscationKey: validateObfuscationKey(defaults.obfuscationKey),
+    obfuscationKey: validateObfuscationKey(defaults.obfuscationKey)
   }
 }

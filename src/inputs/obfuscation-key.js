@@ -5,7 +5,10 @@ const core = require('@actions/core')
  * @returns {bool|string} Returns a validated obfuscation-key path input.
  */
 module.exports = function validateObfuscationKey(standard = '') {
-  const obfuscationKey = core.getInput('obfuscation-key', { required: false }) ?? standard
-  core.debug(`Adding obfuscation-key path: ${obfuscationKey === '' ? 'NONE' : obfuscationKey}`)
+  const obfuscationKey =
+    core.getInput('obfuscation-key', { required: false }) ?? standard
+  core.debug(
+    `Adding obfuscation-key path: ${obfuscationKey === '' ? 'NONE' : obfuscationKey}`
+  )
   return obfuscationKey
 }

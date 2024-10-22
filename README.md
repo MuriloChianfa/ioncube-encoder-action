@@ -142,14 +142,13 @@ jobs:
   _(default: false)_
 - **_replace-target_**: Mode to replace target file/directory if not exists.
   _(default: false)_
-- **_copy_**: Path of files to just copy without encrypt or encode.
-  _(default: '')_
-- **_ignore_**: Path of files to just ignore on ioncube walkthrough.
-  _(default: '')_
-- **_skip_**: Path of files to just skip on ioncube walkthrough.
-  _(default: '')_
-- **_obfuscate_**: Type of PHP entities to obfuscate: all,locals,functions,methods,classes,linenos,none.
-  _(default: 'none')_
+- **_copy_**: Path of files to just copy without encrypt or encode. _(default:
+  '')_
+- **_ignore_**: Path of files to just ignore on ioncube walkthrough. _(default:
+  '')_
+- **_skip_**: Path of files to just skip on ioncube walkthrough. _(default: '')_
+- **_obfuscate_**: Type of PHP entities to obfuscate:
+  all,locals,functions,methods,classes,linenos,none. _(default: 'none')_
 - **_obfuscation-key_**: Key to obfuscation method to apply on PHP entities.
   _(default: '')_
 
