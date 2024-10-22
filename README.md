@@ -1,6 +1,5 @@
 ![Banner](banner.png)
 
-[![Check Transpiled JavaScript](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/check-dist.yml)
 [![CI](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml)
 [![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
 [![CodeQL](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml)
