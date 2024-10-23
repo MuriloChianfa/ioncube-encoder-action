@@ -5010,6 +5010,10 @@ async function run() {
     customOptions += ' --binary'
   }
 
+  if (inputs.comments === false) {
+    customOptions += ' --no-doc-comments'
+  }
+
   if (inputs.createTarget !== false) {
     customOptions += ' --create-target'
   }
