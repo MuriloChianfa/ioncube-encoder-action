@@ -65,11 +65,26 @@ describe('action', () => {
       17,
       'Using callback file in runtime path: NONE'
     )
+    expect(debugMock).toHaveBeenNthCalledWith(18, 'Adding copy path: NONE')
+    expect(debugMock).toHaveBeenNthCalledWith(19, 'Adding ignore path: NONE')
+    expect(debugMock).toHaveBeenNthCalledWith(20, 'Adding a path to skip: NONE')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      21,
+      'Input for obfuscate option is not valid!'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      22,
+      'Using obfuscate option: none'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      23,
+      'Adding obfuscation-key path: NONE'
+    )
 
     // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(19, '')
-    expect(debugMock).toHaveBeenNthCalledWith(20, '')
+    expect(debugMock).toHaveBeenNthCalledWith(24, 0)
+    expect(debugMock).toHaveBeenNthCalledWith(25, '')
+    expect(debugMock).toHaveBeenNthCalledWith(26, '')
 
     expect(setOutputMock).toHaveBeenCalledWith(
       'status',
@@ -128,11 +143,36 @@ describe('action', () => {
       17,
       'Using callback file in runtime path: public/ioncube.php'
     )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      18,
+      'Creating target file/directory if not exists'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      19,
+      'Replacing target file/directory'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(20, 'Adding copy path: NONE')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      21,
+      'Adding ignore path: */cache/*'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      22,
+      'Adding a path to skip: */vendor/*'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      23,
+      'Using obfuscate option: classes'
+    )
+    expect(debugMock).toHaveBeenNthCalledWith(
+      24,
+      'Adding obfuscation-key path: CHANGEME'
+    )
 
     // No errors
-    expect(debugMock).toHaveBeenNthCalledWith(18, 0)
-    expect(debugMock).toHaveBeenNthCalledWith(19, '')
-    expect(debugMock).toHaveBeenNthCalledWith(20, '')
+    expect(debugMock).toHaveBeenNthCalledWith(25, 0)
+    expect(debugMock).toHaveBeenNthCalledWith(26, '')
+    expect(debugMock).toHaveBeenNthCalledWith(27, '')
 
     expect(setOutputMock).toHaveBeenCalledWith(
       'status',

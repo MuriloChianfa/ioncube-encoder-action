@@ -1,6 +1,5 @@
 ![Banner](banner.png)
 
-[![Check Transpiled JavaScript](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/check-dist.yml)
 [![CI](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml)
 [![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
 [![CodeQL](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml)
@@ -139,6 +138,19 @@ jobs:
   false)_
 - **_callback-file_**: File to validate manually when license is invalid.
   _(default: false)_
+- **_create-target_**: Mode to create target file/directory if not exists.
+  _(default: false)_
+- **_replace-target_**: Mode to replace target file/directory if not exists.
+  _(default: false)_
+- **_copy_**: Path of files to just copy without encrypt or encode. _(default:
+  '')_
+- **_ignore_**: Path of files to just ignore on ioncube walkthrough. _(default:
+  '')_
+- **_skip_**: Path of files to just skip on ioncube walkthrough. _(default: '')_
+- **_obfuscate_**: PHP entities to obfuscate:
+  all,locals,functions,methods,classes,linenos,none. _(default: 'none')_
+- **_obfuscation-key_**: Key to obfuscation method to apply on PHP entities.
+  _(default: '')_
 
 <hr>
 

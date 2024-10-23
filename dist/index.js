@@ -4515,6 +4515,45 @@ module.exports = function validateComments(standard = true) {
 
 /***/ }),
 
+/***/ 8301:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate copy path value.
+ * @returns {bool|string} Returns a validated copy path input.
+ */
+module.exports = function validateCopy(standard = '') {
+  const copy = core.getInput('copy', { required: false }) ?? standard
+  core.debug(`Adding copy path: ${copy === '' ? 'NONE' : copy}`)
+  return copy
+}
+
+
+/***/ }),
+
+/***/ 6822:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate create-target input values.
+ * @returns {bool|string} Returns a validated create-target input.
+ */
+module.exports = function validateCreateTarget(standard = false) {
+  const createTarget =
+    core.getInput('create-target', { required: false }) ?? standard
+  if (createTarget) {
+    core.debug('Creating target file/directory if not exists')
+  }
+  return createTarget
+}
+
+
+/***/ }),
+
 /***/ 6106:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -4557,6 +4596,24 @@ module.exports = function validateEncrypt(standard = '') {
   const encrypt = core.getInput('encrypt') ?? standard
   core.debug(`Encrypting files: ${encrypt === '' ? 'NONE' : encrypt}`)
   return encrypt
+}
+
+
+/***/ }),
+
+/***/ 3777:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate ignore path value.
+ * @returns {bool|string} Returns a validated ignore path input.
+ */
+module.exports = function validateIgnore(standard = '') {
+  const ignore = core.getInput('ignore', { required: false }) ?? standard
+  core.debug(`Adding ignore path: ${ignore === '' ? 'NONE' : ignore}`)
+  return ignore
 }
 
 
@@ -4623,6 +4680,58 @@ module.exports = function validateLoader(standard = true) {
       : 'Not checking for loader in environment'
   )
   return loader
+}
+
+
+/***/ }),
+
+/***/ 2924:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate obfuscate value.
+ * @returns {bool|string} Returns a validated obfuscate input.
+ */
+module.exports = function validateObfuscate(standard = 'none') {
+  let obfuscate = core.getInput('obfuscate', { required: false }) ?? standard
+
+  const obfuscateValues = obfuscate.split(',').map(value => value.trim())
+
+  const isValid = obfuscateValues.every(value =>
+    ['all', 'locals', 'functions', 'methods', 'classes', 'linenos'].includes(
+      value
+    )
+  )
+  if (!isValid) {
+    core.debug(`Input for obfuscate option is not valid!`)
+  }
+
+  obfuscate = isValid ? obfuscateValues.join(',') : 'none'
+
+  core.debug(`Using obfuscate option: ${obfuscate}`)
+  return obfuscate
+}
+
+
+/***/ }),
+
+/***/ 7558:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate obfuscation-key path value.
+ * @returns {bool|string} Returns a validated obfuscation-key path input.
+ */
+module.exports = function validateObfuscationKey(standard = '') {
+  const required = { required: false }
+  const obfuscationKey = core.getInput('obfuscation-key', required) ?? standard
+  const path = obfuscationKey === '' ? 'NONE' : obfuscationKey
+  core.debug(`Adding obfuscation-key path: ${path}`)
+  return obfuscationKey
 }
 
 
@@ -4764,6 +4873,45 @@ module.exports = function validateReflection(standard = false) {
 
 /***/ }),
 
+/***/ 1059:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate replace-target input values.
+ * @returns {bool|string} Returns a validated replace-target input.
+ */
+module.exports = function validateReplaceTarget(standard = false) {
+  const replaceTarget =
+    core.getInput('replace-target', { required: false }) ?? standard
+  if (replaceTarget) {
+    core.debug('Replacing target file/directory')
+  }
+  return replaceTarget
+}
+
+
+/***/ }),
+
+/***/ 5667:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186)
+
+/**
+ * Validate skip path value.
+ * @returns {bool|string} Returns a validated skip path input.
+ */
+module.exports = function validateSkip(standard = '') {
+  const skip = core.getInput('skip', { required: false }) ?? standard
+  core.debug(`Adding a path to skip: ${skip === '' ? 'NONE' : skip}`)
+  return skip
+}
+
+
+/***/ }),
+
 /***/ 5267:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -4865,8 +5013,36 @@ async function run() {
     customOptions += ' --no-doc-comments'
   }
 
+  if (inputs.createTarget !== false) {
+    customOptions += ' --create-target'
+  }
+
+  if (inputs.replaceTarget !== false) {
+    customOptions += ' --replace-target'
+  }
+
   if (inputs.encrypt !== '') {
     customOptions += ` --encrypt "${inputs.encrypt}"`
+  }
+
+  if (inputs.copy !== '') {
+    customOptions += ` --copy "${inputs.copy}"`
+  }
+
+  if (inputs.ignore !== '') {
+    customOptions += ` --ignore "${inputs.ignore}"`
+  }
+
+  if (inputs.skip !== '') {
+    customOptions += ` --skip "${inputs.skip}"`
+  }
+
+  if (inputs.obfuscate !== '') {
+    customOptions += ` --obfuscate "${inputs.obfuscate}"`
+  }
+
+  if (inputs.obfuscationKey !== '') {
+    customOptions += ` --obfuscation-key "${inputs.obfuscationKey}"`
   }
 
   if (inputs.optimize === 'more' || inputs.optimize === 'max') {
@@ -4951,6 +5127,7 @@ module.exports = {
 /***/ 8326:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+const obfuscate = __nccwpck_require__(2924)
 const laravel = __nccwpck_require__(6134)
 
 const templates = {
@@ -4967,6 +5144,13 @@ module.exports = function choose(template = 'php') {
     phpTargetVersion: '8.2',
     arch: 64,
     input: '',
+    copy: '',
+    createTarget: false,
+    replaceTarget: false,
+    ignore: '',
+    obfuscate: 'none',
+    obfuscationKey: '',
+    skip: '',
     output: 'encrypted',
     reflection: false,
     encrypt: '',
@@ -5006,6 +5190,13 @@ module.exports = function laravel() {
     encrypt: '*.blade.php',
     binary: true,
     optimize: 'max',
+    copy: '',
+    createTarget: true,
+    replaceTarget: true,
+    ignore: '*/cache/*',
+    obfuscate: 'classes',
+    obfuscationKey: 'CHANGEME',
+    skip: '*/vendor/*',
     comments: true, // without
     loader: false, // without
     preamble: '',
@@ -5044,6 +5235,13 @@ const validatePassphrase = __nccwpck_require__(350)
 const validateCheck = __nccwpck_require__(8633)
 const validateLicense = __nccwpck_require__(3538)
 const validateCallback = __nccwpck_require__(683)
+const validateCopy = __nccwpck_require__(8301)
+const validateCreateTarget = __nccwpck_require__(6822)
+const validateReplaceTarget = __nccwpck_require__(1059)
+const validateIgnore = __nccwpck_require__(3777)
+const validateObfuscate = __nccwpck_require__(2924)
+const validateObfuscationKey = __nccwpck_require__(7558)
+const validateSkip = __nccwpck_require__(5667)
 
 /**
  * Set default arguments depending on inputed template.
@@ -5075,7 +5273,14 @@ module.exports = async function validate() {
     passphrase: validatePassphrase(defaults.passphrase),
     check: validateCheck(defaults.check),
     license: validateLicense(defaults.license),
-    callback: validateCallback(defaults.callback)
+    callback: validateCallback(defaults.callback),
+    createTarget: validateCreateTarget(defaults.createTarget),
+    replaceTarget: validateReplaceTarget(defaults.replaceTarget),
+    copy: validateCopy(defaults.copy),
+    ignore: validateIgnore(defaults.ignore),
+    skip: validateSkip(defaults.skip),
+    obfuscate: validateObfuscate(defaults.obfuscate),
+    obfuscationKey: validateObfuscationKey(defaults.obfuscationKey)
   }
 }
 
