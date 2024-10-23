@@ -147,7 +147,7 @@ jobs:
 - **_ignore_**: Path of files to just ignore on ioncube walkthrough. _(default:
   '')_
 - **_skip_**: Path of files to just skip on ioncube walkthrough. _(default: '')_
-- **_obfuscate_**: Type of PHP entities to obfuscate:
+- **_obfuscate_**: PHP entities to obfuscate:
   all,locals,functions,methods,classes,linenos,none. _(default: 'none')_
 - **_obfuscation-key_**: Key to obfuscation method to apply on PHP entities.
   _(default: '')_
