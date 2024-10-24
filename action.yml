@@ -60,6 +60,31 @@ inputs:
     required: false
     default: 'encrypted'
     type: string
+  create-target:
+    description: 'Creates the target file/directory if not exists'
+    required: false
+    default: false
+    type: boolean
+  replace-target:
+    description: 'Replaces the target file/directory if not exists'
+    required: false
+    default: false
+    type: boolean
+  copy:
+    description: 'A pattern to copy files to output directory'
+    required: false
+    default: ''
+    type: string
+  ignore:
+    description: 'A pattern to ignore files to output directory'
+    required: false
+    default: ''
+    type: string
+  skip:
+    description: 'A pattern to skip files to output directory'
+    required: false
+    default: ''
+    type: string
 
   # Reflection API
   allow-reflection:
@@ -93,6 +118,16 @@ inputs:
     options:
       - 'more'
       - 'max'
+  obfuscate:
+    description: 'PHP entities to obfuscate'
+    required: false
+    default: 'none'
+    type: string
+  obfuscation-key:
+    description: 'Key to obfuscation method'
+    required: false
+    default: ''
+    type: string
 
   # Output customizations
   no-doc-comments:
