@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: ioncube-encoder-action
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - given-names: Murilo
+    family-names: Chianfa
+    email: murilo.chianfa@outlook.com
+repository-code: 'https://github.com/MuriloChianfa/ioncube-encoder-action'
+url: 'https://github.com/MuriloChianfa/ioncube-encoder-action'
+abstract: >-
+  GitHub Action to automate IonCube encoding for your PHP project.
+  Seamlessly integrate IonCube encoding into CI/CD workflows for Laravel,
+  Joomla, and WordPress projects.
+keywords:
+  - GitHub Actions
+  - IonCube
+  - PHP
+  - Laravel
+  - CI/CD
+license: MIT
+version: 2.1.1
+date-released: '2026-01-27'
