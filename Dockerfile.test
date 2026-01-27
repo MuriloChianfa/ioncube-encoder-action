@@ -1,0 +1,36 @@
+FROM node:20-slim
+
+# Install system dependencies for IonCube and testing
+RUN apt-get update && apt-get install -y \
+    wget \
+    tar \
+    ca-certificates \
+    php-cli \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /action
+
+# Copy package files first for better caching
+COPY package*.json ./
+
+# Install all dependencies (including dev dependencies for testing)
+RUN npm ci
+
+# Copy the rest of the application
+COPY . .
+
+# Download IonCube encoder trial
+# RUN mkdir -p /opt/ioncube && \
+#     wget -O /tmp/ioncube_encoder_evaluation.tar.gz \
+#     "https://downloads.ioncube.com/encoder_evaluation/ioncube_encoder_evaluation_x86-64.tar.gz" && \
+#     tar -xzf /tmp/ioncube_encoder_evaluation.tar.gz -C /opt/ioncube --strip-components=1 && \
+#     rm /tmp/ioncube_encoder_evaluation.tar.gz && \
+#     ln -s /opt/ioncube/ioncube_encoder /usr/local/bin/ioncube_encoder
+
+# Set environment variables similar to GitHub Actions
+ENV CI=true
+ENV GITHUB_ACTIONS=true
+
+# Default command runs tests
+CMD ["npm", "test"]

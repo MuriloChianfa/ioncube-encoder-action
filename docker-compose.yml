@@ -1,0 +1,116 @@
+# Docker Compose configuration for testing the IonCube Encoder Action
+
+version: '3.8'
+
+services:
+  # Basic test runner (unit tests only, no IonCube encoder)
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npm test
+    environment:
+      - CI=true
+      - GITHUB_ACTIONS=true
+
+  # Test runner with coverage
+  test-coverage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npm run coverage
+    environment:
+      - CI=true
+      - GITHUB_ACTIONS=true
+
+  # Interactive test runner with IonCube (for manual testing)
+  test-interactive:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - .:/action
+      - /action/node_modules
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    environment:
+      - CI=true
+      - GITHUB_ACTIONS=true
+
+  # Specific test file runner
+  test-inputs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npx jest __tests__/inputs.test.js --verbose
+    environment:
+      - CI=true
+
+  test-scenarios:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npx jest __tests__/scenarios.test.js --verbose
+    environment:
+      - CI=true
+
+  test-errors:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npx jest __tests__/errors.test.js --verbose
+    environment:
+      - CI=true
+
+  test-command:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npx jest __tests__/command.test.js --verbose
+    environment:
+      - CI=true
+
+  # Lint checker
+  lint:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npm run lint
+    environment:
+      - CI=true
+
+  # Watch mode for development
+  test-watch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/action
+      - /action/node_modules
+    command: npx jest --watch
+    stdin_open: true
+    tty: true
+    environment:
+      - CI=false
