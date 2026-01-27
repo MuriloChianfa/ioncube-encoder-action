@@ -49,8 +49,8 @@ reported to the project maintainers at murilo.chianfa@outlook.com.
 
 All complaints will be reviewed and investigated promptly and fairly.
 
-All project maintainers are obligated to respect the privacy and security of
-the reporter of any incident.
+All project maintainers are obligated to respect the privacy and security of the
+reporter of any incident.
 
 ## Attribution
 

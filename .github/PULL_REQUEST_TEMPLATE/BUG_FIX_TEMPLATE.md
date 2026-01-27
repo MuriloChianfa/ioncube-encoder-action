@@ -29,9 +29,9 @@ Fixes #(issue)
 
 <!-- How can reviewers verify this fix works? -->
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Checklist
 

@@ -11,7 +11,8 @@ We release patches for security vulnerabilities for the following versions:
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within this project, please follow these steps:
+If you discover a security vulnerability within this project, please follow
+these steps:
 
 1. **Do NOT** open a public issue
 2. Email details to: **murilo.chianfa@outlook.com**
@@ -24,15 +25,18 @@ If you discover a security vulnerability within this project, please follow thes
 ### What to Expect
 
 - **Response Time**: We aim to respond within 48 hours
-- **Updates**: You'll receive updates on the progress of fixing the vulnerability
+- **Updates**: You'll receive updates on the progress of fixing the
+  vulnerability
 - **Disclosure**: We'll coordinate with you on public disclosure timing
-- **Credit**: We'll credit you in the release notes (unless you prefer to remain anonymous)
+- **Credit**: We'll credit you in the release notes (unless you prefer to remain
+  anonymous)
 
 ## Security Best Practices
 
 When using this action:
 
-- Keep secrets (like `IONCUBE_DOWNLOAD_URL`, `IONCUBE_PASSPHRASE`) in GitHub Secrets
+- Keep secrets (like `IONCUBE_DOWNLOAD_URL`, `IONCUBE_PASSPHRASE`) in GitHub
+  Secrets
 - Never commit sensitive information to your repository
 - Use the latest version of the action
 - Review encoded output before deployment

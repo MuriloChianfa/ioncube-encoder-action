@@ -24,7 +24,6 @@ Closes #(issue)
 
 ```yaml
 # Example workflow using the new feature
-
 ```
 
 ## Testing

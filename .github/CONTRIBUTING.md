@@ -1,6 +1,7 @@
 # Contributing to IonCube Encoder Action
 
-Thank you for your interest in contributing! We welcome contributions from the community.
+Thank you for your interest in contributing! We welcome contributions from the
+community.
 
 ## Development Setup
 
@@ -23,6 +24,7 @@ Thank you for your interest in contributing! We welcome contributions from the c
    ```
 
 This command will:
+
 - Format code with Prettier
 - Lint with ESLint
 - Run tests with Jest
@@ -64,9 +66,11 @@ This command will:
 ## Reporting Issues
 
 Use the issue templates provided:
+
 - **Bug Report**: For reporting bugs
 - **Feature Request**: For suggesting new features
 
 ## Questions?
 
-Feel free to open an issue for questions or reach out to murilo.chianfa@outlook.com.
+Feel free to open an issue for questions or reach out to
+murilo.chianfa@outlook.com.

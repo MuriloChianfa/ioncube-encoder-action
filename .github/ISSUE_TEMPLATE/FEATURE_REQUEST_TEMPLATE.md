@@ -25,7 +25,6 @@ assignees: ''
 
 ```yaml
 # Example workflow configuration
-
 ```
 
 ## Alternatives Considered
