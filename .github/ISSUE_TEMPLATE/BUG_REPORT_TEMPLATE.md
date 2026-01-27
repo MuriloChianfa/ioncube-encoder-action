@@ -12,7 +12,7 @@ assignees: ''
 
 ## Environment
 
-- **Action Version**: <!-- e.g., v2.1.1 -->
+- **Action Version**: <!-- e.g., v3.0.0 -->
 - **Node.js Version**: <!-- e.g., 20.8.0 -->
 - **OS**: <!-- e.g., ubuntu-latest, ubuntu-22.04 -->
 - **Runner**: <!-- e.g., GitHub-hosted, self-hosted -->

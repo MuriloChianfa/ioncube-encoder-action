@@ -17,10 +17,11 @@ these steps:
 1. **Do NOT** open a public issue
 2. Email details to: **murilo.chianfa@outlook.com**
 3. Include:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if any)
+
+- Description of the vulnerability
+- Steps to reproduce
+- Potential impact
+- Suggested fix (if any)
 
 ### What to Expect
 

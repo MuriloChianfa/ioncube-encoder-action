@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: IonCube Encode
-        uses: MuriloChianfa/ioncube-encoder-action@v2.1.1
+        uses: MuriloChianfa/ioncube-encoder-action@v3.0.0
         # If you're dont using trial version you need to setup the ioncube download url
         # env:
         #   IONCUBE_DOWNLOAD_URL: ${{ secrets.IONCUBE_DOWNLOAD_URL }}
@@ -83,7 +83,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: IonCube Encode Project
-        uses: MuriloChianfa/ioncube-encoder-action@v2.1.1
+        uses: MuriloChianfa/ioncube-encoder-action@v3.0.0
         # If you're dont using trial version you need to setup the ioncube download url
         # env:
         #   IONCUBE_DOWNLOAD_URL: ${{ secrets.IONCUBE_DOWNLOAD_URL }}
@@ -97,7 +97,7 @@ jobs:
           callback-file: /opt/project/public/ioncube.php
 
       - name: IonCube Encode Callback File
-        uses: MuriloChianfa/ioncube-encoder-action@v2.1.1
+        uses: MuriloChianfa/ioncube-encoder-action@v3.0.0
         # If you're dont using trial version you need to setup the ioncube download url
         # env:
         #   IONCUBE_DOWNLOAD_URL: ${{ secrets.IONCUBE_DOWNLOAD_URL }}
