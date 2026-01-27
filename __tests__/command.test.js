@@ -521,7 +521,8 @@ describe('Command Generation Tests', () => {
     it('generates multiple --allow-reflection flags for space-separated patterns', async () => {
       mocks.getInputMock.mockImplementation(name => {
         if (name === 'trial') return 'true'
-        if (name === 'allow-reflection') return 'MyClass::* AnotherClass::method'
+        if (name === 'allow-reflection')
+          return 'MyClass::* AnotherClass::method'
         return ''
       })
 
@@ -531,7 +532,9 @@ describe('Command Generation Tests', () => {
         cmd.includes('ioncube_encoder')
       )
       expect(encodingCommand).toContain('--allow-reflection MyClass::*')
-      expect(encodingCommand).toContain('--allow-reflection AnotherClass::method')
+      expect(encodingCommand).toContain(
+        '--allow-reflection AnotherClass::method'
+      )
     }, 200000)
   })
 

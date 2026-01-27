@@ -296,10 +296,10 @@ describe('Error Handling and Edge Cases', () => {
       await main.run()
 
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Encrypting files: **/*.blade.php !vendor/**'
+        'Encrypting files: **/*.blade.php, !vendor/**'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding ignore path: **/[Cc]ache/* **/[Ll]og?(s)/*'
+        'Adding ignore path: **/[Cc]ache/*, **/[Ll]og?(s)/*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -317,14 +317,18 @@ describe('Error Handling and Edge Cases', () => {
       execMock = setupExecMock(0)
       await main.run()
 
+      // Note: Space-separated format splits on spaces, so quoted paths with spaces
+      // will be split into multiple values. Use newline or comma-separated for paths with spaces.
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding a path to skip: */vendor/* "path with spaces/*"'
+        'Adding a path to skip: */vendor/*, "path, with, spaces/*"'
       )
     }, 200000)
 
     it('handles very long pattern lists', async () => {
       const longPattern =
         '*.php *.inc *.phtml *.phps *.php3 *.php4 *.php5 *.php7 *.php8'
+      const expectedDebugMessage =
+        'Encrypting files: *.php, *.inc, *.phtml, *.phps, *.php3, *.php4, *.php5, *.php7, *.php8'
       mocks.getInputMock.mockImplementation(name => {
         if (name === 'trial') return 'true'
         if (name === 'encrypt') return longPattern
@@ -334,9 +338,7 @@ describe('Error Handling and Edge Cases', () => {
       execMock = setupExecMock(0)
       await main.run()
 
-      expect(mocks.debugMock).toHaveBeenCalledWith(
-        `Encrypting files: ${longPattern}`
-      )
+      expect(mocks.debugMock).toHaveBeenCalledWith(expectedDebugMessage)
     }, 200000)
   })
 

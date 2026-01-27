@@ -365,7 +365,9 @@ describe('Input Validators', () => {
       })
       const result = validateReflection(false)
       expect(result).toBe(true)
-      expect(mocks.debugMock).toHaveBeenCalledWith('Allowing reflection for all')
+      expect(mocks.debugMock).toHaveBeenCalledWith(
+        'Allowing reflection for all'
+      )
     })
 
     it('returns single pattern for specific reflection', () => {
@@ -383,7 +385,8 @@ describe('Input Validators', () => {
 
     it('returns multiple patterns for space-separated reflection', () => {
       mocks.getInputMock.mockImplementation(name => {
-        if (name === 'allow-reflection') return 'MyClass::* AnotherClass::method'
+        if (name === 'allow-reflection')
+          return 'MyClass::* AnotherClass::method'
         if (name === 'allow-reflection-all') return ''
         return ''
       })

@@ -71,17 +71,21 @@ inputs:
     default: false
     type: boolean
   copy:
-    description: 'Patterns to copy files to output directory (space-separated for multiple)'
+    description:
+      'Patterns to copy files to output directory (space-separated for multiple)'
     required: false
     default: ''
     type: string
   ignore:
-    description: 'Patterns to ignore files to output directory (space-separated for multiple)'
+    description:
+      'Patterns to ignore files to output directory (space-separated for
+      multiple)'
     required: false
     default: ''
     type: string
   skip:
-    description: 'Patterns to skip files to output directory (space-separated for multiple)'
+    description:
+      'Patterns to skip files to output directory (space-separated for multiple)'
     required: false
     default: ''
     type: string
@@ -89,7 +93,8 @@ inputs:
   # Reflection API
   allow-reflection:
     description:
-      'Names or globs for functions or classes to allow the reflection API (space-separated for multiple)'
+      'Names or globs for functions or classes to allow the reflection API
+      (space-separated for multiple)'
     required: false
     default: ''
     type: string
@@ -101,7 +106,8 @@ inputs:
 
   # Files customization
   encrypt:
-    description: 'Names or globs to files to encrypt (space-separated for multiple)'
+    description:
+      'Names or globs to files to encrypt (space-separated for multiple)'
     required: false
     default: ''
     type: string

@@ -16,12 +16,12 @@ module.exports = function validateReflection(standard = false) {
   const reflection =
     core.getInput('allow-reflection') ?? (standard === false ? '' : standard)
   const values = parseMultiValue(reflection)
-  
+
   if (values.length === 0) {
     core.debug('Using reflection for: NONE')
     return []
   }
-  
+
   core.debug(`Using reflection for: ${values.join(', ')}`)
   return values
 }

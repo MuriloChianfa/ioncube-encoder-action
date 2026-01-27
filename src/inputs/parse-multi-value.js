@@ -29,11 +29,8 @@ function parseMultiValue(value) {
   }
 
   // Trim and filter out empty values
-  const result = values
-    .map(v => v.trim())
-    .filter(v => v !== '')
+  const result = values.map(v => v.trim()).filter(v => v !== '')
 
-  core.debug(`Parsed multi-value input: ${result.length} value(s) found`)
   return result
 }
 

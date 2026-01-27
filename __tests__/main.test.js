@@ -254,7 +254,7 @@ describe('action', () => {
       expect(runMock).toHaveReturned()
 
       expect(debugMock).toHaveBeenCalledWith('Encrypting files: *.config.php')
-      expect(debugMock).toHaveBeenCalledWith('Adding copy path: *.txt *.md')
+      expect(debugMock).toHaveBeenCalledWith('Adding copy path: *.txt, *.md')
       expect(debugMock).toHaveBeenCalledWith('Adding ignore path: */logs/*')
       expect(setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -369,7 +369,7 @@ describe('action', () => {
       expect(runMock).toHaveReturned()
 
       expect(debugMock).toHaveBeenCalledWith(
-        'Adding ignore path: */cache/* */logs/* */temp/*'
+        'Adding ignore path: */cache/*, */logs/*, */temp/*'
       )
       expect(setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -389,7 +389,7 @@ describe('action', () => {
       expect(runMock).toHaveReturned()
 
       expect(debugMock).toHaveBeenCalledWith(
-        'Adding a path to skip: */vendor/* */node_modules/*'
+        'Adding a path to skip: */vendor/*, */node_modules/*'
       )
       expect(setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -479,7 +479,7 @@ describe('action', () => {
       expect(runMock).toHaveReturned()
 
       expect(debugMock).toHaveBeenCalledWith(
-        'Using reflection for: MyClass::* MyNamespace\\*'
+        'Using reflection for: MyClass::*, MyNamespace\\*'
       )
       expect(setOutputMock).toHaveBeenCalledWith(
         'status',

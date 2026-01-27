@@ -95,16 +95,16 @@ describe('Real-world Integration Scenarios', () => {
         'Using output path: build/encoded'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Encrypting files: *.blade.php config/*.php'
+        'Encrypting files: *.blade.php, config/*.php'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding a path to skip: */vendor/* */tests/* */node_modules/*'
+        'Adding a path to skip: */vendor/*, */tests/*, */node_modules/*'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding ignore path: */cache/* */logs/* */sessions/*'
+        'Adding ignore path: */cache/*, */logs/*, */sessions/*'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding copy path: *.json *.txt *.md public/*'
+        'Adding copy path: *.json, *.txt, *.md, public/*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -172,10 +172,10 @@ describe('Real-world Integration Scenarios', () => {
       await main.run()
 
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Encrypting files: config/*.php database/*.php'
+        'Encrypting files: config/*.php, database/*.php'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding a path to skip: */public/* */resources/*'
+        'Adding a path to skip: */public/*, */resources/*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -197,7 +197,7 @@ describe('Real-world Integration Scenarios', () => {
         'Encrypting files: *.blade.php'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding a path to skip: */vendor/* */app/*'
+        'Adding a path to skip: */vendor/*, */app/*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -245,10 +245,10 @@ describe('Real-world Integration Scenarios', () => {
       await main.run()
 
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding copy path: *.json *.xml *.txt *.md *.yml *.yaml'
+        'Adding copy path: *.json, *.xml, *.txt, *.md, *.yml, *.yaml'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding ignore path: */cache/* */logs/*'
+        'Adding ignore path: */cache/*, */logs/*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -268,10 +268,10 @@ describe('Real-world Integration Scenarios', () => {
       await main.run()
 
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding ignore path: */cache/* */logs/* */tmp/* */temp/* *.log *.cache'
+        'Adding ignore path: */cache/*, */logs/*, */tmp/*, */temp/*, *.log, *.cache'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding a path to skip: */test/* */tests/* */Test/*'
+        'Adding a path to skip: */test/*, */tests/*, */Test/*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
@@ -292,7 +292,7 @@ describe('Real-world Integration Scenarios', () => {
       await main.run()
 
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Using reflection for: App\\Models\\* App\\Controllers\\*'
+        'Using reflection for: App\\Models\\*, App\\Controllers\\*'
       )
       expect(mocks.setOutputMock).toHaveBeenCalledWith(
         'status',
