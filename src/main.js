@@ -59,19 +59,35 @@ async function run() {
     customOptions += ' --replace-target'
   }
 
-  if (inputs.encrypt !== '') {
+  if (Array.isArray(inputs.encrypt) && inputs.encrypt.length > 0) {
+    inputs.encrypt.forEach(pattern => {
+      customOptions += ` --encrypt "${pattern}"`
+    })
+  } else if (inputs.encrypt !== '') {
     customOptions += ` --encrypt "${inputs.encrypt}"`
   }
 
-  if (inputs.copy !== '') {
+  if (Array.isArray(inputs.copy) && inputs.copy.length > 0) {
+    inputs.copy.forEach(pattern => {
+      customOptions += ` --copy "${pattern}"`
+    })
+  } else if (inputs.copy !== '') {
     customOptions += ` --copy "${inputs.copy}"`
   }
 
-  if (inputs.ignore !== '') {
+  if (Array.isArray(inputs.ignore) && inputs.ignore.length > 0) {
+    inputs.ignore.forEach(pattern => {
+      customOptions += ` --ignore "${pattern}"`
+    })
+  } else if (inputs.ignore !== '') {
     customOptions += ` --ignore "${inputs.ignore}"`
   }
 
-  if (inputs.skip !== '') {
+  if (Array.isArray(inputs.skip) && inputs.skip.length > 0) {
+    inputs.skip.forEach(pattern => {
+      customOptions += ` --skip "${pattern}"`
+    })
+  } else if (inputs.skip !== '') {
     customOptions += ` --skip "${inputs.skip}"`
   }
 
@@ -89,6 +105,10 @@ async function run() {
 
   if (inputs.reflection === true) {
     customOptions += ` --allow-reflection-all`
+  } else if (Array.isArray(inputs.reflection) && inputs.reflection.length > 0) {
+    inputs.reflection.forEach(pattern => {
+      customOptions += ` --allow-reflection ${pattern}`
+    })
   } else if (inputs.reflection !== '') {
     customOptions += ` --allow-reflection ${inputs.reflection}`
   }

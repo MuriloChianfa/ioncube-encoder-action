@@ -1,9 +1,11 @@
 ![Banner](banner.png)
 
+![Coverage](./badges/coverage.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Releases](https://img.shields.io/github/v/release/MuriloChianfa/ioncube-encoder-action)](https://github.com/MuriloChianfa/ioncube-encoder-action/releases)
 [![CI](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/ci.yml)
 [![GitHub Super-Linter](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/linter.yml)
 [![CodeQL](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MuriloChianfa/ioncube-encoder-action/actions/workflows/codeql-analysis.yml)
-![Coverage](./badges/coverage.svg)
 
 Automate and streamline IonCube encoding for your PHP project under Laravel,
 Joomla, WordPress frameworks with this powerful GitHub Action. Encode your
@@ -118,11 +120,12 @@ jobs:
 - **_php-target-version_**: The PHP encoded files target version. _(default:
   8.2)_
 - **_arch_**: Architecture of target environment runner. _(default: 64)_
-- **_allow-reflection_**: Name or glob to funcions or classes for allow the
-  reflection API. _(default: false)_
+- **_allow-reflection_**: Names or globs for functions or classes to allow the
+  reflection API. Supports multiple values (space-separated). _(default: false)_
 - **_allow-reflection-all_**: Allow the reflection API at all the PHP code.
   _(default: false)_
-- **_encrypt_**: Name or glob to files to encrypt. _(default: false)_
+- **_encrypt_**: Names or globs to files to encrypt. Supports multiple values
+  (space-separated). _(default: false)_
 - **_binary_**: Encode files in binary format. _(default: false)_
 - **_optimize_**: Level of encoding performance. _(default: more)_
 - **_no-doc-comments_**: Not allow doc comments on encoded files. _(default:
@@ -143,15 +146,46 @@ jobs:
   _(default: false)_
 - **_replace-target_**: Mode to replace target file/directory if not exists.
   _(default: false)_
-- **_copy_**: Path of files to just copy without encrypt or encode. _(default:
-  '')_
-- **_ignore_**: Path of files to just ignore on ioncube walkthrough. _(default:
-  '')_
-- **_skip_**: Path of files to just skip on ioncube walkthrough. _(default: '')_
+- **_copy_**: Patterns of files to copy without encrypt or encode. Supports
+  multiple values (space-separated). _(default: '')_
+- **_ignore_**: Patterns of files to ignore on ioncube walkthrough. Supports
+  multiple values (space-separated). _(default: '')_
+- **_skip_**: Patterns of files to skip on ioncube walkthrough. Supports
+  multiple values (space-separated). _(default: '')_
 - **_obfuscate_**: PHP entities to obfuscate:
   all,locals,functions,methods,classes,linenos,none. _(default: 'none')_
 - **_obfuscation-key_**: Key to obfuscation method to apply on PHP entities.
   _(default: '')_
+
+#### Using Multiple Values
+
+Several inputs support multiple values (`copy`, `ignore`, `skip`, `encrypt`,
+`allow-reflection`). You can provide multiple patterns using different formats:
+
+**Newline-separated (YAML multiline syntax):**
+
+```yaml
+with:
+  copy: |
+    *.txt
+    *.md
+    *.json
+  ignore: |
+    */cache/*
+    */logs/*
+    */temp/*
+```
+
+**Comma-separated:**
+
+```yaml
+with:
+  copy: '*.txt,*.md,*.json'
+  ignore: '*/cache/*,*/logs/*'
+```
+
+When multiple values are provided, each pattern is passed as a separate flag to
+the IonCube encoder.
 
 <hr>
 

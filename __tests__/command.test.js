@@ -237,6 +237,21 @@ describe('Command Generation Tests', () => {
     it('properly quotes copy pattern', async () => {
       mocks.getInputMock.mockImplementation(name => {
         if (name === 'trial') return 'true'
+        if (name === 'copy') return '*.txt'
+        return ''
+      })
+
+      await main.run()
+
+      const encodingCommand = capturedCommands.find(cmd =>
+        cmd.includes('ioncube_encoder')
+      )
+      expect(encodingCommand).toContain('--copy "*.txt"')
+    }, 200000)
+
+    it('generates multiple --copy flags for space-separated patterns', async () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'trial') return 'true'
         if (name === 'copy') return '*.txt *.md'
         return ''
       })
@@ -246,7 +261,56 @@ describe('Command Generation Tests', () => {
       const encodingCommand = capturedCommands.find(cmd =>
         cmd.includes('ioncube_encoder')
       )
-      expect(encodingCommand).toContain('--copy "*.txt *.md"')
+      expect(encodingCommand).toContain('--copy "*.txt"')
+      expect(encodingCommand).toContain('--copy "*.md"')
+    }, 200000)
+
+    it('generates multiple --encrypt flags for space-separated patterns', async () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'trial') return 'true'
+        if (name === 'encrypt') return '*.blade.php *.env.example'
+        return ''
+      })
+
+      await main.run()
+
+      const encodingCommand = capturedCommands.find(cmd =>
+        cmd.includes('ioncube_encoder')
+      )
+      expect(encodingCommand).toContain('--encrypt "*.blade.php"')
+      expect(encodingCommand).toContain('--encrypt "*.env.example"')
+    }, 200000)
+
+    it('generates multiple --ignore flags for space-separated patterns', async () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'trial') return 'true'
+        if (name === 'ignore') return '*/cache/* */logs/*'
+        return ''
+      })
+
+      await main.run()
+
+      const encodingCommand = capturedCommands.find(cmd =>
+        cmd.includes('ioncube_encoder')
+      )
+      expect(encodingCommand).toContain('--ignore "*/cache/*"')
+      expect(encodingCommand).toContain('--ignore "*/logs/*"')
+    }, 200000)
+
+    it('generates multiple --skip flags for space-separated patterns', async () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'trial') return 'true'
+        if (name === 'skip') return '*/vendor/* */node_modules/*'
+        return ''
+      })
+
+      await main.run()
+
+      const encodingCommand = capturedCommands.find(cmd =>
+        cmd.includes('ioncube_encoder')
+      )
+      expect(encodingCommand).toContain('--skip "*/vendor/*"')
+      expect(encodingCommand).toContain('--skip "*/node_modules/*"')
     }, 200000)
 
     it('properly quotes ignore pattern', async () => {
@@ -439,7 +503,7 @@ describe('Command Generation Tests', () => {
       expect(encodingCommand).toContain('--allow-reflection-all')
     }, 200000)
 
-    it('includes --allow-reflection with pattern', async () => {
+    it('includes --allow-reflection with single pattern', async () => {
       mocks.getInputMock.mockImplementation(name => {
         if (name === 'trial') return 'true'
         if (name === 'allow-reflection') return 'MyClass::*'
@@ -452,6 +516,22 @@ describe('Command Generation Tests', () => {
         cmd.includes('ioncube_encoder')
       )
       expect(encodingCommand).toContain('--allow-reflection MyClass::*')
+    }, 200000)
+
+    it('generates multiple --allow-reflection flags for space-separated patterns', async () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'trial') return 'true'
+        if (name === 'allow-reflection') return 'MyClass::* AnotherClass::method'
+        return ''
+      })
+
+      await main.run()
+
+      const encodingCommand = capturedCommands.find(cmd =>
+        cmd.includes('ioncube_encoder')
+      )
+      expect(encodingCommand).toContain('--allow-reflection MyClass::*')
+      expect(encodingCommand).toContain('--allow-reflection AnotherClass::method')
     }, 200000)
   })
 

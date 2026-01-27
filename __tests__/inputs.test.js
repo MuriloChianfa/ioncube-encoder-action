@@ -30,6 +30,7 @@ const validateReplaceTarget = require('../src/inputs/replace-target')
 const validateInput = require('../src/inputs/input')
 const validateOutput = require('../src/inputs/output')
 const validateTemplate = require('../src/inputs/template')
+const parseMultiValue = require('../src/inputs/parse-multi-value')
 
 describe('Input Validators', () => {
   let mocks
@@ -37,6 +38,48 @@ describe('Input Validators', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     mocks = setupCoreMocks()
+  })
+
+  describe('parseMultiValue', () => {
+    it('parses space-separated values', () => {
+      const result = parseMultiValue('*.txt *.md *.json')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('parses newline-separated values', () => {
+      const result = parseMultiValue('*.txt\n*.md\n*.json')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('parses comma-separated values', () => {
+      const result = parseMultiValue('*.txt,*.md,*.json')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('trims whitespace from values', () => {
+      const result = parseMultiValue('  *.txt  ,  *.md  ,  *.json  ')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('filters out empty values', () => {
+      const result = parseMultiValue('*.txt  *.md  *.json')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('returns empty array for empty string', () => {
+      const result = parseMultiValue('')
+      expect(result).toEqual([])
+    })
+
+    it('returns single element array for single value', () => {
+      const result = parseMultiValue('*.txt')
+      expect(result).toEqual(['*.txt'])
+    })
+
+    it('handles mixed whitespace in newline-separated values', () => {
+      const result = parseMultiValue('  *.txt  \n  *.md  \n  *.json  ')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
   })
 
   describe('validateEncoderVersion', () => {
@@ -314,107 +357,211 @@ describe('Input Validators', () => {
   })
 
   describe('validateReflection', () => {
-    it('checks for allow-reflection-all but returns empty when string', () => {
+    it('returns true for allow-reflection-all', () => {
       mocks.getInputMock.mockImplementation(name => {
-        if (name === 'allow-reflection-all') return 'true'
+        if (name === 'allow-reflection-all') return true
         if (name === 'allow-reflection') return ''
         return ''
       })
       const result = validateReflection(false)
-      // Since reflectionAll === true will be false (string !== boolean),
-      // it falls through to check allow-reflection which is empty
-      expect(result).toBe('')
+      expect(result).toBe(true)
+      expect(mocks.debugMock).toHaveBeenCalledWith('Allowing reflection for all')
     })
 
-    it('returns pattern for specific reflection', () => {
+    it('returns single pattern for specific reflection', () => {
       mocks.getInputMock.mockImplementation(name => {
         if (name === 'allow-reflection') return 'MyClass::*'
         if (name === 'allow-reflection-all') return ''
         return ''
       })
       const result = validateReflection(false)
-      expect(result).toBe('MyClass::*')
+      expect(result).toEqual(['MyClass::*'])
       expect(mocks.debugMock).toHaveBeenCalledWith(
         'Using reflection for: MyClass::*'
       )
     })
 
-    it('returns empty string when no reflection is set', () => {
+    it('returns multiple patterns for space-separated reflection', () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'allow-reflection') return 'MyClass::* AnotherClass::method'
+        if (name === 'allow-reflection-all') return ''
+        return ''
+      })
+      const result = validateReflection(false)
+      expect(result).toEqual(['MyClass::*', 'AnotherClass::method'])
+      expect(mocks.debugMock).toHaveBeenCalledWith(
+        'Using reflection for: MyClass::*, AnotherClass::method'
+      )
+    })
+
+    it('handles newline-separated patterns', () => {
+      mocks.getInputMock.mockImplementation(name => {
+        if (name === 'allow-reflection') return 'MyClass::*\nAnotherClass::*'
+        if (name === 'allow-reflection-all') return ''
+        return ''
+      })
+      const result = validateReflection(false)
+      expect(result).toEqual(['MyClass::*', 'AnotherClass::*'])
+    })
+
+    it('returns empty array when no reflection is set', () => {
       mocks.getInputMock.mockReturnValue('')
       const result = validateReflection(false)
-      expect(result).toBe('')
+      expect(result).toEqual([])
       expect(mocks.debugMock).toHaveBeenCalledWith('Using reflection for: NONE')
     })
   })
 
   describe('validateEncrypt', () => {
-    it('handles file pattern', () => {
+    it('handles single file pattern', () => {
       mocks.getInputMock.mockReturnValue('*.blade.php')
       const result = validateEncrypt('')
-      expect(result).toBe('*.blade.php')
+      expect(result).toEqual(['*.blade.php'])
       expect(mocks.debugMock).toHaveBeenCalledWith(
         'Encrypting files: *.blade.php'
       )
     })
 
-    it('returns NONE for empty pattern', () => {
+    it('handles multiple space-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*.blade.php *.env.example')
+      const result = validateEncrypt('')
+      expect(result).toEqual(['*.blade.php', '*.env.example'])
+      expect(mocks.debugMock).toHaveBeenCalledWith(
+        'Encrypting files: *.blade.php, *.env.example'
+      )
+    })
+
+    it('handles newline-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*.blade.php\n*.env.example')
+      const result = validateEncrypt('')
+      expect(result).toEqual(['*.blade.php', '*.env.example'])
+    })
+
+    it('handles comma-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*.blade.php,*.env.example')
+      const result = validateEncrypt('')
+      expect(result).toEqual(['*.blade.php', '*.env.example'])
+    })
+
+    it('returns empty array for empty pattern', () => {
       mocks.getInputMock.mockReturnValue('')
       const result = validateEncrypt('')
-      expect(result).toBe('')
+      expect(result).toEqual([])
       expect(mocks.debugMock).toHaveBeenCalledWith('Encrypting files: NONE')
     })
   })
 
   describe('validateCopy', () => {
-    it('handles copy pattern', () => {
+    it('handles single copy pattern', () => {
+      mocks.getInputMock.mockReturnValue('*.txt')
+      const result = validateCopy('')
+      expect(result).toEqual(['*.txt'])
+      expect(mocks.debugMock).toHaveBeenCalledWith('Adding copy path: *.txt')
+    })
+
+    it('handles multiple space-separated patterns', () => {
       mocks.getInputMock.mockReturnValue('*.txt *.md')
       const result = validateCopy('')
-      expect(result).toBe('*.txt *.md')
+      expect(result).toEqual(['*.txt', '*.md'])
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding copy path: *.txt *.md'
+        'Adding copy path: *.txt, *.md'
       )
     })
 
-    it('returns NONE for empty pattern', () => {
+    it('handles newline-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*.txt\n*.md\n*.json')
+      const result = validateCopy('')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('handles comma-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*.txt,*.md,*.json')
+      const result = validateCopy('')
+      expect(result).toEqual(['*.txt', '*.md', '*.json'])
+    })
+
+    it('returns empty array for empty pattern', () => {
       mocks.getInputMock.mockReturnValue('')
       const result = validateCopy('')
-      expect(result).toBe('')
+      expect(result).toEqual([])
       expect(mocks.debugMock).toHaveBeenCalledWith('Adding copy path: NONE')
     })
   })
 
   describe('validateIgnore', () => {
-    it('handles ignore pattern', () => {
+    it('handles single ignore pattern', () => {
       mocks.getInputMock.mockReturnValue('*/cache/*')
       const result = validateIgnore('')
-      expect(result).toBe('*/cache/*')
+      expect(result).toEqual(['*/cache/*'])
       expect(mocks.debugMock).toHaveBeenCalledWith(
         'Adding ignore path: */cache/*'
       )
     })
 
-    it('returns NONE for empty pattern', () => {
+    it('handles multiple space-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*/cache/* */logs/*')
+      const result = validateIgnore('')
+      expect(result).toEqual(['*/cache/*', '*/logs/*'])
+      expect(mocks.debugMock).toHaveBeenCalledWith(
+        'Adding ignore path: */cache/*, */logs/*'
+      )
+    })
+
+    it('handles newline-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*/cache/*\n*/logs/*\n*/temp/*')
+      const result = validateIgnore('')
+      expect(result).toEqual(['*/cache/*', '*/logs/*', '*/temp/*'])
+    })
+
+    it('handles comma-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*/cache/*,*/logs/*')
+      const result = validateIgnore('')
+      expect(result).toEqual(['*/cache/*', '*/logs/*'])
+    })
+
+    it('returns empty array for empty pattern', () => {
       mocks.getInputMock.mockReturnValue('')
       const result = validateIgnore('')
-      expect(result).toBe('')
+      expect(result).toEqual([])
       expect(mocks.debugMock).toHaveBeenCalledWith('Adding ignore path: NONE')
     })
   })
 
   describe('validateSkip', () => {
-    it('handles skip pattern', () => {
+    it('handles single skip pattern', () => {
       mocks.getInputMock.mockReturnValue('*/vendor/*')
       const result = validateSkip('')
-      expect(result).toBe('*/vendor/*')
+      expect(result).toEqual(['*/vendor/*'])
       expect(mocks.debugMock).toHaveBeenCalledWith(
         'Adding a path to skip: */vendor/*'
       )
     })
 
-    it('returns NONE for empty pattern', () => {
+    it('handles multiple space-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*/vendor/* */node_modules/*')
+      const result = validateSkip('')
+      expect(result).toEqual(['*/vendor/*', '*/node_modules/*'])
+      expect(mocks.debugMock).toHaveBeenCalledWith(
+        'Adding a path to skip: */vendor/*, */node_modules/*'
+      )
+    })
+
+    it('handles newline-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*/vendor/*\n*/node_modules/*')
+      const result = validateSkip('')
+      expect(result).toEqual(['*/vendor/*', '*/node_modules/*'])
+    })
+
+    it('handles comma-separated patterns', () => {
+      mocks.getInputMock.mockReturnValue('*/vendor/*,*/node_modules/*')
+      const result = validateSkip('')
+      expect(result).toEqual(['*/vendor/*', '*/node_modules/*'])
+    })
+
+    it('returns empty array for empty pattern', () => {
       mocks.getInputMock.mockReturnValue('')
       const result = validateSkip('')
-      expect(result).toBe('')
+      expect(result).toEqual([])
       expect(mocks.debugMock).toHaveBeenCalledWith(
         'Adding a path to skip: NONE'
       )
