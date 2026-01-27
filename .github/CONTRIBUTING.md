@@ -14,11 +14,14 @@ community.
 
 1. Fork and clone the repository
 2. Install dependencies:
+
    ```bash
    npm install
    ```
+
 3. Make your changes
 4. Run the test suite:
+
    ```bash
    npm run all
    ```
@@ -50,7 +53,7 @@ This command will:
 2. Make your changes with clear, descriptive commits
 3. Push to your fork
 4. Open a Pull Request using the appropriate template:
-   - Bug fixes: Use the bug fix template
+   - Bugfixes: Use the bugfix template
    - New features: Use the feature template
    - General changes: Use the default template
 

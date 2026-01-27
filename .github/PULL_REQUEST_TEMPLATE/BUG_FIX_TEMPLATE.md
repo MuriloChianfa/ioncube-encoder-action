@@ -1,4 +1,4 @@
-## Bug Fix
+## Bugfix
 
 <!-- Provide a clear and concise description of the bug fix -->
 
@@ -20,7 +20,7 @@ Fixes #(issue)
 
 ## Testing
 
-- [ ] Added/updated tests for the bug fix
+- [ ] Added/updated tests for the bugfix
 - [ ] Existing tests pass (`npm test`)
 - [ ] Manually tested the fix
 - [ ] Verified fix doesn't introduce new issues

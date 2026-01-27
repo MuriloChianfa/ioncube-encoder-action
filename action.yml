@@ -71,8 +71,8 @@ inputs:
     default: false
     type: boolean
   copy:
-    description:
-      'Patterns to copy files to output directory (space-separated for multiple)'
+    description: >
+      Patterns to copy files to output directory (space-separated for multiple)
     required: false
     default: ''
     type: string
@@ -84,8 +84,8 @@ inputs:
     default: ''
     type: string
   skip:
-    description:
-      'Patterns to skip files to output directory (space-separated for multiple)'
+    description: >
+      Patterns to skip files to output directory (space-separated for multiple)
     required: false
     default: ''
     type: string

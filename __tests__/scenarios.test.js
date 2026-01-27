@@ -50,7 +50,7 @@ describe('Real-world Integration Scenarios', () => {
         'Using obfuscate option: all'
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
-        'Adding obfuscation-key path: prod-key-xyz-789'
+        'Adding obfuscation-key path: prod-key-xyz-789' // gitleaks:allow
       )
       expect(mocks.debugMock).toHaveBeenCalledWith(
         'Using passphrase: production-passphrase-2024'

@@ -34,7 +34,10 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                body: `👋 Thanks for opening your first issue! We appreciate your contribution to this project. Please be patient while we review your issue.`
+                body: >
+                  👋 Thanks for opening your first issue! We appreciate your
+                  contribution to this project. Please be patient while we
+                  review your issue.
               });
             }
 
@@ -48,13 +51,19 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'all'
-            }).then(prs => prs.data.filter(p => p.user.login === pr.user.login).length === 1);
+            }).then(prs => prs.data.filter(
+              p => p.user.login === pr.user.login
+            ).length === 1);
 
             if (isFirstPR) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pr.number,
-                body: `🎉 Thanks for opening your first pull request! We're excited to review your contribution. Please make sure you've followed our [contributing guidelines](.github/CONTRIBUTING.md).`
+                body: >
+                  🎉 Thanks for opening your first pull request! We're
+                  excited to review your contribution. Please make sure
+                  you've followed our
+                  [contributing guidelines](.github/CONTRIBUTING.md).
               });
             }
