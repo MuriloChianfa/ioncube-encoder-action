@@ -30,7 +30,7 @@
     "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",
-    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "lint": "npx eslint .",
     "package": "npx ncc build src/index.js -o dist --source-map --license licenses.txt",
     "package:watch": "npm run package -- --watch",
     "test": "npx jest",
@@ -38,9 +38,6 @@
     "prepare": "husky"
   },
   "license": "MIT",
-  "eslintConfig": {
-    "extends": "./.github/linters/.eslintrc.yml"
-  },
   "jest": {
     "verbose": true,
     "clearMocks": true,
@@ -63,7 +60,10 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^@actions/core$": "<rootDir>/__mocks__/@actions/core.js"
+    }
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
@@ -76,9 +76,10 @@
     "@babel/preset-env": "^7.29.2",
     "@vercel/ncc": "^0.38.4",
     "babel-preset-jest": "^30.3.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.39.4",
     "eslint-plugin-github": "^5.1.5",
     "eslint-plugin-jest": "^29.15.0",
+    "globals": "^17.4.0",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
     "lint-staged": "^16.4.0",
@@ -90,7 +91,7 @@
       "prettier --write"
     ],
     "*.js": [
-      "eslint --fix -c ./.github/linters/.eslintrc.yml"
+      "eslint --fix"
     ]
   }
 }

@@ -14,6 +14,7 @@ jobs:
   greeting:
     name: Greet New Contributors
     runs-on: ubuntu-latest
+    if: "!endsWith(github.actor, '[bot]')"
 
     steps:
       - name: Greet on new issue
@@ -34,10 +35,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                body: >
-                  👋 Thanks for opening your first issue! We appreciate your
-                  contribution to this project. Please be patient while we
-                  review your issue.
+                body: `👋 Thanks for opening your first issue! We appreciate your contribution to this project. Please be patient while we review your issue.`
               });
             }
 
@@ -60,10 +58,6 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pr.number,
-                body: >
-                  🎉 Thanks for opening your first pull request! We're
-                  excited to review your contribution. Please make sure
-                  you've followed our
-                  [contributing guidelines](.github/CONTRIBUTING.md).
+                body: `🎉 Thanks for opening your first pull request! We're excited to review your contribution. Please make sure you've followed our [contributing guidelines](.github/CONTRIBUTING.md).`
               });
             }
