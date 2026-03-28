@@ -64,7 +64,7 @@ This command will:
 - [ ] Tests added/updated and passing
 - [ ] Documentation updated if needed
 - [ ] `npm run all` passes successfully
-- [ ] No linter warnings
+- [ ] No linting warnings
 - [ ] Bundle updated (`npm run bundle`)
 
 ## Reporting Issues

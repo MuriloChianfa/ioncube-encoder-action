@@ -216,7 +216,7 @@ npm run all
 
 ### Dependencies
 
-- _NodeJS 20.8.0 or higher._
+- _Node.js 20.8.0 or higher._
 - _NPM 10.1.0 or higher._
 
 ## Commitment to Quality
@@ -225,7 +225,7 @@ During package development, try as best as possible to embrace good design and
 development practices to try to ensure that this package is as good as it can
 be. The checklist for package development includes:
 
-- ✅ Have no Lint warnings throughout all code.
+- ✅ Have no linting warnings throughout all code.
 - ✅ Include comprehensive documentation in README.md.
 
 ## Contributions
