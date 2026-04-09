@@ -28,7 +28,7 @@ async function run() {
   if (!inputs.trial && process.env.IONCUBE_DOWNLOAD_URL) {
     try {
       const exitCode = await exec.exec(
-        `${inputs.ioncube} --activate`,
+        `${inputs.ioncube} -${inputs.encoderVersion} --activate`,
         [],
         options
       )
@@ -137,7 +137,11 @@ async function run() {
       myOutput = ''
       myError = ''
 
-      exitCode = await exec.exec(`${inputs.ioncube} --deactivate`, [], options)
+      exitCode = await exec.exec(
+        `${inputs.ioncube} -${inputs.encoderVersion} --deactivate`,
+        [],
+        options
+      )
 
       core.debug(exitCode)
       core.debug(myOutput)
@@ -151,7 +155,7 @@ async function run() {
       myError = ''
 
       const exitCode = await exec.exec(
-        `${inputs.ioncube} --deactivate`,
+        `${inputs.ioncube} -${inputs.encoderVersion} --deactivate`,
         [],
         options
       )
