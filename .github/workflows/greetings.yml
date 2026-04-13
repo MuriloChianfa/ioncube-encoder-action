@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Greet on new issue
         if: github.event_name == 'issues'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const issue = context.payload.issue;
@@ -41,7 +41,7 @@ jobs:
 
       - name: Greet on new pull request
         if: github.event_name == 'pull_request_target'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const pr = context.payload.pull_request;
