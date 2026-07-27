@@ -71,7 +71,7 @@
     "tar": "^7.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
+    "@babel/core": "^8.0.1",
     "@babel/eslint-parser": "^7.28.4",
     "@babel/preset-env": "^7.29.3",
     "@vercel/ncc": "^0.44.1",
